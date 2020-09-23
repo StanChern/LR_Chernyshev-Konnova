@@ -18,5 +18,14 @@ public class CompositeFunctionTest {
         CompositeFunction comFun1 = new CompositeFunction(idFun,lnFun);
         assertEquals(comFun1.apply(1),0,DELTA);
 
+        SqrFunction sqrFun = new SqrFunction();
+        UnitFunction unitFun = new UnitFunction();
+        MathFunction composite = sqrFun.andThen(lnFun).andThen(unitFun);
+        assertEquals(composite.apply(4), 1);
+        assertNotEquals(composite.apply(1), 0,0);
+
+        double result = lnFun.andThen(sqrFun).andThen(idFun).apply(100);
+        assertEquals(result, 2.145966026289347, 0);
+        assertNotEquals(result, 100, 0);
     }
 }

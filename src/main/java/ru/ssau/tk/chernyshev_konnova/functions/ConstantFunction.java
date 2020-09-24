@@ -1,11 +1,11 @@
 package ru.ssau.tk.chernyshev_konnova.functions;
 
-public class ConstantFunction implements MathFunction{
+public class ConstantFunction implements MathFunction {
 
     private final double c;
 
     public ConstantFunction(double c) {
-        this.c=c;
+        this.c = c;
     }
 
     @Override

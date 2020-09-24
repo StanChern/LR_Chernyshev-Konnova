@@ -10,8 +10,9 @@ public class CbrtFunctionTest {
 
     @Test
     public void testApply() {
-        CbrtFunction cbrtFun = new CbrtFunction();
-        assertEquals(cbrtFun.apply(27), 3, DELTA);
-        assertEquals(cbrtFun.apply(0), 0, DELTA);
+        MathFunction cbrtFunction = new CbrtFunction();
+        assertEquals(cbrtFunction.apply(27), 3, DELTA);
+        assertEquals(cbrtFunction.apply(0), 0, DELTA);
+        assertEquals(cbrtFunction.apply(-27), -3, DELTA);
     }
 }

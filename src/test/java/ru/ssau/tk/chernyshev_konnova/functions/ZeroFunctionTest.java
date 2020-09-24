@@ -7,17 +7,19 @@ import static org.testng.Assert.*;
 public class ZeroFunctionTest {
 
     private final static double DELTA = 0.00001;
-    ZeroFunction zeroFun = new ZeroFunction();
+    private ConstantFunction zeroFunction = new ZeroFunction();
 
     @Test
     public void testZeroApply() {
-        assertEquals(zeroFun.apply(11651), 0, DELTA);
-        assertNotEquals(zeroFun.apply(1655), 1655, DELTA);
+        assertEquals(zeroFunction.apply(11651), 0, DELTA);
+        assertNotEquals(zeroFunction.apply(1655), 1655, DELTA);
+        assertEquals(zeroFunction.apply(612165), 0, DELTA);
     }
 
     @Test
     public void testZeroGet() {
-        assertEquals(zeroFun.getC(), 0, DELTA);
-        assertNotEquals(zeroFun.getC(), 1, DELTA);
+        assertEquals(zeroFunction.getC(), 0, DELTA);
+        assertNotEquals(zeroFunction.getC(), 1, DELTA);
+        assertEquals(zeroFunction.getC(), 0, DELTA);
     }
 }

@@ -10,8 +10,9 @@ public class SqrFunctionTest {
 
     @Test
     public void testApply() {
-        SqrFunction sqrFun = new SqrFunction();
-        assertEquals(sqrFun.apply(3), 9, DELTA);
-        assertEquals(sqrFun.apply(0), 0, DELTA);
+        MathFunction sqrFunction = new SqrFunction();
+        assertEquals(sqrFunction.apply(3), 9, DELTA);
+        assertEquals(sqrFunction.apply(0), 0, DELTA);
+        assertEquals(sqrFunction.apply(-5), 25, DELTA);
     }
 }

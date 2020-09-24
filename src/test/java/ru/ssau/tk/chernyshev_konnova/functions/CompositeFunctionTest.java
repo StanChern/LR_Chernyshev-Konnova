@@ -21,11 +21,11 @@ public class CompositeFunctionTest {
         SqrFunction sqrFun = new SqrFunction();
         UnitFunction unitFun = new UnitFunction();
         MathFunction composite = sqrFun.andThen(lnFun).andThen(unitFun);
-        assertEquals(composite.apply(4), 1);
-        assertNotEquals(composite.apply(1), 0,0);
+        assertEquals(composite.apply(4), 1, DELTA);
+        assertNotEquals(composite.apply(1), 0,DELTA);
 
         double result = lnFun.andThen(sqrFun).andThen(idFun).apply(100);
-        assertEquals(result, 2.145966026289347, 0);
-        assertNotEquals(result, 100, 0);
+        assertEquals(result, 2.145966026289347, DELTA);
+        assertNotEquals(result, 100, DELTA);
     }
 }

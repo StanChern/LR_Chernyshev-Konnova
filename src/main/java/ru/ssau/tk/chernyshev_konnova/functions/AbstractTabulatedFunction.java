@@ -2,7 +2,7 @@ package ru.ssau.tk.chernyshev_konnova.functions;
 
 public abstract class AbstractTabulatedFunction implements TabulatedFunction {
 
-    private int count;
+    protected int count;
 
     @Override
     public int getCount() {

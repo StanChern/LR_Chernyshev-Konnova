@@ -47,7 +47,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
     @Override
     protected double extrapolateRight(double x) {
         if (count == 1) return x;
-        return interpolate(x, xValues[count - 1], xValues[count], yValues[count - 1], yValues[count]);
+        return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
     }
 
     @Override
@@ -78,12 +78,18 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public int indexOfX(double x) {
-        return IntStream.range(0, count).findFirst().orElse(-1);
+        for (int i = 0; i < count; i++) {
+            if (Math.abs(xValues[i] - x) < 1E-12) return i;
+        }
+        return -1;
     }
 
     @Override
     public int indexOfY(double y) {
-        return IntStream.range(0, count).findFirst().orElse(-1);
+        for (int i = 0; i < count; i++) {
+            if (Math.abs(yValues[i] - y) < 1E-12) return i;
+        }
+        return -1;
     }
 
     @Override
@@ -93,6 +99,6 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public double rightBound() {
-        return xValues[count];
+        return xValues[count - 1];
     }
 }

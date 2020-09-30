@@ -12,27 +12,6 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         Node prev;
     }
 
-    private void addNode(double x, double y) {
-        Node newNode = new Node();
-        if (head == null) {
-            head = newNode;
-            newNode.prev = newNode;
-            newNode.next = newNode;
-            newNode.x = x;
-            newNode.y = y;
-            last = newNode;
-        } else {
-            newNode.prev = last;
-            newNode.next = head;
-            head.prev = newNode;
-            last.next = newNode;
-            newNode.x = x;
-            newNode.y = y;
-            last = newNode;
-        }
-        count += 1;
-    }
-
     LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
         for (int i = 0; i < xValues.length; i++) {
             this.addNode(xValues[i], yValues[i]);
@@ -40,11 +19,35 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
-        //TODO: конструктор с 4 параметрами
+        double step = (xTo - xFrom) / (count - 1);
+        for (int i = 0; i < count; i++) {
+            this.addNode(xFrom, source.apply(xFrom));
+            xFrom += step;
+        }
+
+    }
+
+    private void addNode(double x, double y) {
+        Node newNode = new Node();
+        newNode.x = x;
+        newNode.y = y;
+        if (head == null) {
+            head = newNode;
+            newNode.prev = newNode;
+            newNode.next = newNode;
+        } else {
+            newNode.prev = last;
+            newNode.next = head;
+            head.prev = newNode;
+            last.next = newNode;
+        }
+        last = newNode;
+        count++;
     }
 
     @Override
     public double leftBound() {
+
         return head.x;
     }
 
@@ -54,23 +57,42 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
     }
 
     private Node getNode(int index) {
-        //TODO: возвращает ссылку на узел номер index
-        return new Node();
+        Node indexNode;
+        if (index <= (count / 2)) {
+            indexNode = head;
+            for (int i = 0; i < count; i++) {
+                if (i == index) {
+                    return indexNode;
+                }
+                indexNode = indexNode.next;
+            }
+        } else {
+            indexNode = last;
+            for (int i = count - 1; i > 0; i--) {
+                if (i == index) {
+                    return indexNode;
+                }
+                indexNode = indexNode.prev;
+            }
+        }
+        return null;
     }
 
     @Override
     public double getX(int index) {
+
         return getNode(index).x;
     }
 
     @Override
     public double getY(int index) {
+
         return getNode(index).y;
     }
 
     @Override
     public void setY(int index, double valueY) {
-        valueY = getNode(index).y;
+        getNode(index).y = valueY;
     }
 
     @Override
@@ -116,17 +138,28 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     protected double extrapolateLeft(double x) {
-        return 0;
+        if (head.x == last.x) {
+            return head.y;
+        }
+        return interpolate(x, head.x, head.next.x, head.y, head.next.y);
     }
 
     @Override
     protected double extrapolateRight(double x) {
-        return 0;
+        if (head.x == last.x) {
+            return head.y;
+        }
+        return interpolate(x, last.prev.x, last.x, last.prev.y, last.y);
     }
 
     @Override
     protected double interpolate(double x, int floorIndex) {
-        return 0;
+        if (head.x == last.x) {
+            return head.y;
+        }
+        Node leftNode = getNode(floorIndex);
+        Node rightNode = leftNode.next;
+        return interpolate(x, leftNode.x, rightNode.x, leftNode.y, rightNode.y);
     }
 
 

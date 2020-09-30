@@ -1,6 +1,7 @@
 package ru.ssau.tk.chernyshev_konnova.functions;
 
 public interface TabulatedFunction extends MathFunction {
+
     int getCount();
 
     double getX(int index);

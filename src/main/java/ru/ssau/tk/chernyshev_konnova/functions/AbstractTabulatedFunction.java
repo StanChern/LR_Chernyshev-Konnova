@@ -4,10 +4,7 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
 
     protected int count;
 
-    @Override
-    public int getCount() {
-        return count;
-    }
+    public abstract int getCount();
 
     protected abstract int floorIndexOfX(double x);
 

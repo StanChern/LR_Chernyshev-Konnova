@@ -18,3 +18,10 @@ public interface TabulatedFunction extends MathFunction {
 
     double rightBound();
 }
+/*TODO:Стас 1) написать MockTabulatedFunction       done
+            2) понять как работает со списком       done
+            3) создать интерфейс удаления/вставки
+            4) написать вставку для листа
+            5) написать удаление для листа
+            6) вынести DELTA
+ */

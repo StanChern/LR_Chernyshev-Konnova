@@ -77,6 +77,10 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         }
         return null;
     }
+    @Override
+    public int getCount() {
+        return count;
+    }
 
     @Override
     public double getX(int index) {

@@ -3,11 +3,10 @@ package ru.ssau.tk.chernyshev_konnova.functions;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
-
+import static ru.ssau.tk.chernyshev_konnova.functions.SomeConstants.*;
 
 public class CompositeFunctionTest {
 
-    private final static double DELTA = 0.00001;
     private final double[] xValues = new double[]{1, 2, 3, 4, 5};
     private final double[] yValues = new double[]{10, 20, 30, 40, 50};
 

@@ -3,13 +3,13 @@ package ru.ssau.tk.chernyshev_konnova.functions;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
+import static ru.ssau.tk.chernyshev_konnova.functions.SomeConstants.*;
 
 public class LinkedListTabulatedFunctionTest {
 
     private final double[] xValues = new double[]{1, 2, 3, 4, 5};
     private final double[] yValues = new double[]{10, 20, 30, 40, 50};
     private final MathFunction testFunction = new LnFunction();
-    private final double DELTA = 0.00001;
 
     private LinkedListTabulatedFunction getListOfArray() {
         return new LinkedListTabulatedFunction(xValues, yValues);
@@ -33,7 +33,7 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testGetNode() {
-       // LinkedListTabulatedFunction testList = getListOfArray();
+        // LinkedListTabulatedFunction testList = getListOfArray();
         assertEquals(getListOfArray().getX(0), 1, DELTA);
         assertEquals(getListOfArray().getX(1), 2, DELTA);
         assertEquals(getListOfArray().getX(2), 3, DELTA);

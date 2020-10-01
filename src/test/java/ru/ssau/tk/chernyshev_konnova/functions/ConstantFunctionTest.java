@@ -3,11 +3,11 @@ package ru.ssau.tk.chernyshev_konnova.functions;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
+import static ru.ssau.tk.chernyshev_konnova.functions.SomeConstants.*;
 
 public class ConstantFunctionTest {
 
-    private final static double DELTA = 0.00001;
-    private ConstantFunction constantFunction = new ConstantFunction(7);
+    private final ConstantFunction constantFunction = new ConstantFunction(7);
 
     @Test
     public void testApply() {

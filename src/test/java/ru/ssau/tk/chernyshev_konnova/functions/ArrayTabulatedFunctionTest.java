@@ -3,9 +3,9 @@ package ru.ssau.tk.chernyshev_konnova.functions;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
+import static ru.ssau.tk.chernyshev_konnova.functions.SomeConstants.*;
 
 public class ArrayTabulatedFunctionTest {
-    private final static double DELTA = 0.00001;
     private final double[] valuesX = new double[]{-27, -8, -1, 0, 1, 8, 27};
     private final double[] valuesY = new double[]{-3, -2, -1, -0, 1, 2, 3};
     private final MathFunction cbrtFunction = new CbrtFunction();

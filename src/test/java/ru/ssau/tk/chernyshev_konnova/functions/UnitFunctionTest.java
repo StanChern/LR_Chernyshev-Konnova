@@ -3,10 +3,10 @@ package ru.ssau.tk.chernyshev_konnova.functions;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
+import static ru.ssau.tk.chernyshev_konnova.functions.SomeConstants.*;
 
 public class UnitFunctionTest {
 
-    private final static double DELTA = 0.00001;
     private ConstantFunction unitFunction = new UnitFunction();
 
     @Test

@@ -2,29 +2,27 @@ package ru.ssau.tk.chernyshev_konnova.functions;
 
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
 
-    private Node head; //голова списка
-    private Node last; //последний узел
+    private Node head;
 
-    protected class Node {
-        double x;
-        double y;
-        Node next;
-        Node prev;
+    protected static class Node {
+        public double x;
+        public double y;
+        public Node next;
+        public Node prev;
     }
 
-    LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
+    public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
         for (int i = 0; i < xValues.length; i++) {
             this.addNode(xValues[i], yValues[i]);
         }
     }
 
-    LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+    public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
         double step = (xTo - xFrom) / (count - 1);
         for (int i = 0; i < count; i++) {
             this.addNode(xFrom, source.apply(xFrom));
             xFrom += step;
         }
-
     }
 
     public void addNode(double x, double y) {
@@ -36,24 +34,23 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
             newNode.prev = newNode;
             newNode.next = newNode;
         } else {
+            Node last = head.prev;
             newNode.prev = last;
             newNode.next = head;
-            head.prev = newNode;
             last.next = newNode;
         }
-        last = newNode;
+        head.prev = newNode;
         count++;
     }
 
     @Override
     public double leftBound() {
-
         return head.x;
     }
 
     @Override
     public double rightBound() {
-        return last.x;
+        return head.prev.x;
     }
 
     private Node getNode(int index) {
@@ -67,7 +64,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
                 indexNode = indexNode.next;
             }
         } else {
-            indexNode = last;
+            indexNode = head.prev;
             for (int i = count - 1; i > 0; i--) {
                 if (i == index) {
                     return indexNode;
@@ -77,6 +74,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         }
         return null;
     }
+
     @Override
     public int getCount() {
         return count;
@@ -84,13 +82,11 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public double getX(int index) {
-
         return getNode(index).x;
     }
 
     @Override
     public double getY(int index) {
-
         return getNode(index).y;
     }
 
@@ -136,13 +132,13 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
                 return i - 1;
             }
         }
-
         return getCount();
     }
 
     @Override
     protected double extrapolateLeft(double x) {
-        if (head.x == last.x) {
+        if (head.x == head.prev.x) {
+            //noinspection SuspiciousNameCombination
             return head.y;
         }
         return interpolate(x, head.x, head.next.x, head.y, head.next.y);
@@ -150,21 +146,20 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     protected double extrapolateRight(double x) {
-        if (head.x == last.x) {
+        if (head.x == head.prev.x) {
+            //noinspection SuspiciousNameCombination
             return head.y;
         }
-        return interpolate(x, last.prev.x, last.x, last.prev.y, last.y);
+        return interpolate(x, head.prev.prev.x, head.prev.x, head.prev.prev.y, head.prev.y);
     }
 
     @Override
     protected double interpolate(double x, int floorIndex) {
-        if (head.x == last.x) {
+        if (head.x == head.prev.x) {
             return head.y;
         }
         Node leftNode = getNode(floorIndex);
         Node rightNode = leftNode.next;
         return interpolate(x, leftNode.x, rightNode.x, leftNode.y, rightNode.y);
     }
-
-
 }

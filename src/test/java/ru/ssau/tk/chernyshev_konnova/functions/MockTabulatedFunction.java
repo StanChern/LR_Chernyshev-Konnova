@@ -14,18 +14,12 @@ public class MockTabulatedFunction extends AbstractTabulatedFunction {
 
     @Override
     public double getX(int index) {
-        if (index == 1) {
-            return (X1);
-        }
-        return (X0);
+        return (index == 1 ? X1 : X0);
     }
 
     @Override
     public double getY(int index) {
-        if (index == 1) {
-            return (Y1);
-        }
-        return (Y0);
+        return (index == 1 ? Y1 : Y0);
     }
 
     @Override
@@ -70,7 +64,9 @@ public class MockTabulatedFunction extends AbstractTabulatedFunction {
         }
         if (x > X1) {
             return (2);
-        } else return (0);
+        } else {
+            return (0);
+        }
     }
 
     @Override

@@ -8,6 +8,11 @@ import static org.testng.Assert.*;
 public class CompositeFunctionTest {
 
     private final static double DELTA = 0.00001;
+    private final double[] xValues = new double[]{1, 2, 3, 4, 5};
+    private final double[] yValues = new double[]{10, 20, 30, 40, 50};
+
+    private final double[] xValues1 = new double[]{6, 7, 8, 9, 10};
+    private final double[] yValues1 = new double[]{60, 70, 80, 90, 100};
 
     @Test
     public void testApply() {
@@ -30,5 +35,12 @@ public class CompositeFunctionTest {
         assertEquals(result, 21.2075924, DELTA);
         assertNotEquals(result, 100, DELTA);
         assertNotEquals(result, 1, DELTA);
+
+        MathFunction listFunction = new LinkedListTabulatedFunction(xValues, yValues);
+        MathFunction arrayFunction = new ArrayTabulatedFunction(xValues1, yValues1);
+        MathFunction arrayListSqrFunction = arrayFunction.andThen(listFunction).andThen(sqrFunction);
+        assertEquals(arrayListSqrFunction.apply(1), 10000, DELTA);
+        assertEquals(arrayListSqrFunction.apply(0.5), 2500, DELTA);
+        assertEquals(arrayListSqrFunction.apply(1.5), 22500, DELTA);
     }
 }

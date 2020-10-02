@@ -1,6 +1,6 @@
 package ru.ssau.tk.chernyshev_konnova.functions;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable {
 
     private Node head;
 
@@ -161,5 +161,37 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction {
         Node leftNode = getNode(floorIndex);
         Node rightNode = leftNode.next;
         return interpolate(x, leftNode.x, rightNode.x, leftNode.y, rightNode.y);
+    }
+    
+    @Override
+    public void insert(double x, double y) {
+        if (indexOfX(x) != -1) {
+            setY(indexOfX(x), y);
+        }
+
+        int index = x < head.x ? 0 : floorIndexOfX(x);
+        Node newNode = new Node();
+        newNode.x = x;
+        newNode.y = y;
+
+        if (index == 0) {
+            newNode.next = head;
+            newNode.prev = head.prev;
+            head.prev.next = newNode;
+            head = newNode;
+        }
+
+        if (index == count) {
+            newNode.next = head;
+            newNode.prev = head.prev;
+            head.prev.next = newNode;
+        } else {
+            Node previous = getNode(index);
+            newNode.next = previous.next;
+            newNode.prev = previous;
+            previous.next = newNode;
+            newNode.next.prev = newNode;
+        }
+        count++;
     }
 }

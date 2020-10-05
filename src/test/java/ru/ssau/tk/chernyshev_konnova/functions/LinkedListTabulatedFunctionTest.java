@@ -128,5 +128,30 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(testListArray.interpolate(2.5, 2), 25);
         assertEquals(testListMath.interpolate(7.5, 3), 2.044978, DELTA);
     }
-}
 
+    @Test
+    public void testInsert() {
+        double[] valuesXFirst = new double[]{};
+        double[] valuesYFirst = new double[]{};
+        LinkedListTabulatedFunction testListArray = new LinkedListTabulatedFunction(valuesXFirst, valuesYFirst);
+
+        testListArray.insert(1, 10);
+        testListArray.insert(0, 0);
+        testListArray.insert(0, 0);
+        testListArray.insert(3, 30);
+        testListArray.insert(2, 20);
+
+        //our list: [(0, 0) (1, 10) (2, 20) (3, 30)]
+        assertEquals(testListArray.getX(1), 1, DELTA);
+        assertEquals(testListArray.getY(1), 10, DELTA);
+
+        assertEquals(testListArray.getX(0), 0, DELTA);
+        assertEquals(testListArray.getY(0), 0, DELTA);
+
+        assertEquals(testListArray.getX(3), 3, DELTA);
+        assertEquals(testListArray.getY(3), 30, DELTA);
+
+        assertEquals(testListArray.getX(2), 2, DELTA);
+        assertEquals(testListArray.getY(2), 20, DELTA);
+    }
+}

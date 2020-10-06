@@ -1,6 +1,8 @@
 package ru.ssau.tk.chernyshev_konnova.functions;
 
+import java.awt.*;
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
 
@@ -173,5 +175,10 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         this.xValues = newXValues;
         this.yValues = newYValues;
         count++;
+    }
+
+    @Override
+    public Iterator<Point> iterator() {
+         throw new UnsupportedOperationException();
     }
 }

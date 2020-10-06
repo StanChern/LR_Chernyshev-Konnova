@@ -12,6 +12,7 @@ public class LinkedListTabulatedFunctionTest {
     private final MathFunction testFunction = new LnFunction();
 
     private LinkedListTabulatedFunction getListOfArray() {
+
         return new LinkedListTabulatedFunction(xValues, yValues);
     }
 
@@ -153,5 +154,16 @@ public class LinkedListTabulatedFunctionTest {
 
         assertEquals(testListArray.getX(2), 2, DELTA);
         assertEquals(testListArray.getY(2), 20, DELTA);
+    }
+
+    @Test
+    public void testRemove() {
+        LinkedListTabulatedFunction testList = getListOfArray();
+        testList.remove(0);
+        assertEquals(testList.getX(0), 1);
+        //our list: 2 3 4 5
+        testList.remove(2);
+        assertEquals(testList.getX(2), 5);
+
     }
 }

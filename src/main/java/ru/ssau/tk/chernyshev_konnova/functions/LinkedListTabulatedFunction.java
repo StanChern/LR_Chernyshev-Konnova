@@ -1,6 +1,6 @@
 package ru.ssau.tk.chernyshev_konnova.functions;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable {
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
 
     private Node head;
 
@@ -161,6 +161,14 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         Node leftNode = getNode(floorIndex);
         Node rightNode = leftNode.next;
         return interpolate(x, leftNode.x, rightNode.x, leftNode.y, rightNode.y);
+    }
+
+    @Override
+    public void remove(int index) {
+        Node deletedNode = getNode(index);
+        deletedNode.prev.next = deletedNode.next;
+        deletedNode.next.prev = deletedNode.prev;
+        count--;
     }
 
     @Override

@@ -2,7 +2,7 @@ package ru.ssau.tk.chernyshev_konnova.functions;
 
 import java.util.Arrays;
 
-public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Removable {
+public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
 
     private double[] xValues;
     private double[] yValues;
@@ -139,5 +139,39 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         this.xValues = xTempValues;
         this.yValues = yTempValues;
         count--;
+    }
+
+    @Override
+    public void insert(double x, double y) {
+        int indexOfX = indexOfX(x);
+        if (indexOfX != -1) {
+            setY(indexOfX, y);
+        }
+        indexOfX = floorIndexOfX(x);
+        double[] newXValues = new double[count + 1];
+        double[] newYValues = new double[count + 1];
+        if (indexOfX == 0) {
+            newXValues[0] = x;
+            newYValues[0] = y;
+            System.arraycopy(xValues, 0, newXValues, 1, count);
+            System.arraycopy(yValues, 0, newYValues, 1, count);
+        }
+        if (indexOfX == count) {
+            System.arraycopy(xValues, 0, newXValues, 0, count);
+            System.arraycopy(yValues, 0, newYValues, 0, count);
+            newXValues[count] = x;
+            newYValues[count] = y;
+        }
+        if ((indexOfX != 0) && (indexOfX != count)) {
+            System.arraycopy(xValues, 0, newXValues, 0, indexOfX + 1);
+            System.arraycopy(yValues, 0, newYValues, 0, indexOfX + 1);
+            newXValues[indexOfX + 1] = x;
+            newYValues[indexOfX + 1] = y;
+            System.arraycopy(xValues, indexOfX, newXValues, indexOfX + 1, count - indexOfX);
+            System.arraycopy(xValues, indexOfX, newXValues, indexOfX + 1, count - indexOfX);
+        }
+        this.xValues = newXValues;
+        this.yValues = newYValues;
+        count++;
     }
 }

@@ -1,8 +1,5 @@
 package ru.ssau.tk.chernyshev_konnova.functions;
 
-import java.awt.*;
-import java.util.Iterator;
-
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
 
     private Node head;
@@ -210,10 +207,5 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             }
             count++;
         }
-    }
-
-    @Override
-    public Iterator<Point> iterator() {
-        throw new UnsupportedOperationException();
     }
 }

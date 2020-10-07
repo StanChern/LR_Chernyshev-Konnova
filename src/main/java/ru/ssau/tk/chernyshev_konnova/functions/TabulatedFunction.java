@@ -1,8 +1,6 @@
 package ru.ssau.tk.chernyshev_konnova.functions;
 
-import java.awt.*;
-
-public interface TabulatedFunction extends MathFunction, Iterable<Point> {
+public interface TabulatedFunction extends MathFunction {
 
     int getCount();
 

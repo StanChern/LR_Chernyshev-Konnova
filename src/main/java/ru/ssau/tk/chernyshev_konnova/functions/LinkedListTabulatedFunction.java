@@ -12,12 +12,21 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     public LinkedListTabulatedFunction(double[] xValues, double[] yValues) {
+        if (xValues.length < 2) {
+            throw new IllegalArgumentException("Length less than 2 points");
+        }
         for (int i = 0; i < xValues.length; i++) {
             this.addNode(xValues[i], yValues[i]);
         }
     }
 
     public LinkedListTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+        if (count < 2) {
+            throw new IllegalArgumentException("Length less than 2 points");
+        }
+        if ((xFrom >= xTo) || (xFrom < 0) | (xTo < 0)) {
+            throw new IllegalArgumentException("Incorrect parameter values");
+        }
         double step = (xTo - xFrom) / (count - 1);
         for (int i = 0; i < count; i++) {
             this.addNode(xFrom, source.apply(xFrom));
@@ -54,6 +63,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
     }
 
     private Node getNode(int index) {
+        checkIndex(index);
         Node indexNode;
         if (index <= (count / 2)) {
             indexNode = head;
@@ -82,16 +92,19 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public double getX(int index) {
+        checkIndex(index);
         return getNode(index).x;
     }
 
     @Override
     public double getY(int index) {
+        checkIndex(index);
         return getNode(index).y;
     }
 
     @Override
     public void setY(int index, double valueY) {
+        checkIndex(index);
         getNode(index).y = valueY;
     }
 
@@ -137,27 +150,16 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     protected double extrapolateLeft(double x) {
-        if (head.x == head.prev.x) {
-            //noinspection SuspiciousNameCombination
-            return head.y;
-        }
         return interpolate(x, head.x, head.next.x, head.y, head.next.y);
     }
 
     @Override
     protected double extrapolateRight(double x) {
-        if (head.x == head.prev.x) {
-            //noinspection SuspiciousNameCombination
-            return head.y;
-        }
         return interpolate(x, head.prev.prev.x, head.prev.x, head.prev.prev.y, head.prev.y);
     }
 
     @Override
     protected double interpolate(double x, int floorIndex) {
-        if (head.x == head.prev.x) {
-            return head.y;
-        }
         Node leftNode = getNode(floorIndex);
         Node rightNode = leftNode.next;
         return interpolate(x, leftNode.x, rightNode.x, leftNode.y, rightNode.y);
@@ -206,6 +208,12 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
                 }
             }
             count++;
+        }
+    }
+
+    private void checkIndex(int index) {
+        if (index < 0 || index > count - 1) {
+            throw new ArrayIndexOutOfBoundsException("Index out of bounds of array");
         }
     }
 }

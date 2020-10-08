@@ -8,12 +8,21 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     private double[] yValues;
 
     public ArrayTabulatedFunction(double[] xValues, double[] yValues) {
+        if (xValues.length < 2) {
+            throw new IllegalArgumentException("Length less than 2 points");
+        }
         count = xValues.length;
         this.xValues = Arrays.copyOf(xValues, count);
         this.yValues = Arrays.copyOf(yValues, count);
     }
 
     ArrayTabulatedFunction(MathFunction source, double xFrom, double xTo, int count) {
+        if (count < 2) {
+            throw new IllegalArgumentException("Length less than 2 points");
+        }
+        if ((xFrom >= xTo) || (xFrom < 0) | (xTo < 0)) {
+            throw new IllegalArgumentException("Incorrect parameter values");
+        }
         this.count = count;
         xValues = new double[count];
         yValues = new double[count];
@@ -31,7 +40,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
     @Override
     protected int floorIndexOfX(double x) {
         if (x < xValues[0]) {
-            return 0;
+            throw new IllegalArgumentException("X is less than the left border");
         }
         for (int i = 0; i + 1 < count; i++) {
             if (xValues[i + 1] > x) {
@@ -43,45 +52,39 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     @Override
     protected double extrapolateLeft(double x) {
-        if (count == 1) {
-            return x;
-        }
         return interpolate(x, xValues[0], xValues[1], yValues[0], yValues[1]);
     }
 
     @Override
     protected double extrapolateRight(double x) {
-        if (count == 1) {
-            return x;
-        }
         return interpolate(x, xValues[count - 2], xValues[count - 1], yValues[count - 2], yValues[count - 1]);
     }
 
     @Override
     protected double interpolate(double x, int floorIndex) {
-        if (count == 1) {
-            return x;
-        }
         return interpolate(x, xValues[floorIndex], xValues[floorIndex + 1], yValues[floorIndex], yValues[floorIndex + 1]);
     }
 
     @Override
     public int getCount() {
-        return (count);
+        return count;
     }
 
     @Override
     public double getX(int index) {
+        checkIndex(index);
         return xValues[index];
     }
 
     @Override
     public double getY(int index) {
+        checkIndex(index);
         return yValues[index];
     }
 
     @Override
     public void setY(int index, double value) {
+        checkIndex(index);
         yValues[index] = value;
     }
 
@@ -147,10 +150,9 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         if (indexOfX != -1) {
             setY(indexOfX, y);
         }
-        indexOfX = floorIndexOfX(x);
         double[] newXValues = new double[count + 1];
         double[] newYValues = new double[count + 1];
-        if (indexOfX == 0) {
+       /* if (indexOfX == 0) {
             newXValues[0] = x;
             newYValues[0] = y;
             System.arraycopy(xValues, 0, newXValues, 1, count);
@@ -161,17 +163,23 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
             System.arraycopy(yValues, 0, newYValues, 0, count);
             newXValues[count] = x;
             newYValues[count] = y;
-        }
-        if ((indexOfX != 0) && (indexOfX != count)) {
-            System.arraycopy(xValues, 0, newXValues, 0, indexOfX + 1);
-            System.arraycopy(yValues, 0, newYValues, 0, indexOfX + 1);
-            newXValues[indexOfX + 1] = x;
-            newYValues[indexOfX + 1] = y;
-            System.arraycopy(xValues, indexOfX, newXValues, indexOfX + 1, count - indexOfX);
-            System.arraycopy(xValues, indexOfX, newXValues, indexOfX + 1, count - indexOfX);
-        }
+        }*/
+
+        System.arraycopy(xValues, 0, newXValues, 0, indexOfX + 1);
+        System.arraycopy(yValues, 0, newYValues, 0, indexOfX + 1);
+        newXValues[indexOfX + 1] = x;
+        newYValues[indexOfX + 1] = y;
+        System.arraycopy(xValues, indexOfX + 1, newXValues, indexOfX + 1, count - indexOfX + 1);
+        System.arraycopy(xValues, indexOfX + 1, newXValues, indexOfX + 1, count - indexOfX + 1);
+
         this.xValues = newXValues;
         this.yValues = newYValues;
         count++;
+    }
+
+    private void checkIndex(int index) {
+        if (index < 0 || index > count - 1) {
+            throw new ArrayIndexOutOfBoundsException("Index out of bounds of array");
+        }
     }
 }

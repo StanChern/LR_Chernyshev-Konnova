@@ -1,5 +1,7 @@
 package ru.ssau.tk.chernyshev_konnova.functions;
 
+import java.util.Iterator;
+
 public class MockTabulatedFunction extends AbstractTabulatedFunction {
 
     private static final double X0 = 1;
@@ -82,5 +84,10 @@ public class MockTabulatedFunction extends AbstractTabulatedFunction {
     @Override
     protected double interpolate(double x, int floorIndex) {
         return interpolate(x, X0, X1, Y0, Y1);
+    }
+
+    @Override
+    public Iterator<Point> iterator() {
+        throw new UnsupportedOperationException();
     }
 }

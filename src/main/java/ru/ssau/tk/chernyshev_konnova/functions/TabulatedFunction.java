@@ -1,6 +1,6 @@
 package ru.ssau.tk.chernyshev_konnova.functions;
 
-public interface TabulatedFunction extends MathFunction {
+public interface TabulatedFunction extends MathFunction, Iterable<Point> {
 
     int getCount();
 

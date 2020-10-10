@@ -1,5 +1,8 @@
 package ru.ssau.tk.chernyshev_konnova.functions;
 
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
 public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
 
     private Node head;
@@ -209,6 +212,36 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
             }
             count++;
         }
+    }
+
+    @Override
+    public Iterator<Point> iterator() {
+        Iterator<Point> myIterator = new Iterator<Point>() {
+            Node node = head;
+
+            @Override
+            public boolean hasNext() {
+                if (node.next instanceof Node) {
+                    return false;
+                }
+                return true;
+            }
+
+            @Override
+            public Point next() {
+                if (hasNext() == false) {
+                    throw new NoSuchElementException();
+                }
+                Point point = new Point(node.x, node.y);
+                if (node == head.prev) {
+                    node = null;
+                } else {
+                    node = node.next;
+                }
+                return point;
+            }
+        };
+        return myIterator;
     }
 
     private void checkIndex(int index) {

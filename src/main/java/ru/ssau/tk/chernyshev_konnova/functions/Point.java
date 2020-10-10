@@ -1,0 +1,10 @@
+package ru.ssau.tk.chernyshev_konnova.functions;
+
+public class Point {
+    public final double x;
+    public final double y;
+    Point(double x, double y){
+        this.x = x;
+        this.y = y;
+    }
+}

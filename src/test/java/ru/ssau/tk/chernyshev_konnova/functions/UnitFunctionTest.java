@@ -7,7 +7,7 @@ import static ru.ssau.tk.chernyshev_konnova.functions.SomeConstants.*;
 
 public class UnitFunctionTest {
 
-    private ConstantFunction unitFunction = new UnitFunction();
+    private final ConstantFunction unitFunction = new UnitFunction();
 
     @Test
     public void testUnitApply() {

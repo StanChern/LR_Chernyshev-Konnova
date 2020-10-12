@@ -7,7 +7,7 @@ import static ru.ssau.tk.chernyshev_konnova.functions.SomeConstants.*;
 
 public class ZeroFunctionTest {
 
-    private ConstantFunction zeroFunction = new ZeroFunction();
+    private final ConstantFunction zeroFunction = new ZeroFunction();
 
     @Test
     public void testZeroApply() {

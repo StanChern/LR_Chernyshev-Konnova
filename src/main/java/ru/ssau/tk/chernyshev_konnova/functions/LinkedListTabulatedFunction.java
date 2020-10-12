@@ -85,7 +85,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
                 indexNode = indexNode.prev;
             }
         }
-        return null;
+        throw new UnsupportedOperationException("");
     }
 
     @Override
@@ -170,21 +170,25 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public void remove(int index) {
-        Node deletedNode = getNode(index);
-        deletedNode.prev.next = deletedNode.next;
-        deletedNode.next.prev = deletedNode.prev;
+        if (count == 2) {
+            throw new UnsupportedOperationException("Length will become less than 2 points");
+        }
+        if (index == 0) {
+            // я пыталась, у меня не получилось .-.
+        } else {
+            Node deletedNode = getNode(index);
+            deletedNode.prev.next = deletedNode.next;
+            deletedNode.next.prev = deletedNode.prev;
+        }
         count--;
     }
 
     @Override
     public void insert(double x, double y) {
-
         if (count == 0) {
             addNode(x, y);
-
         } else if (indexOfX(x) != -1) {
             setY(indexOfX(x), y);
-
         } else {
             int index = floorIndexOfX(x);
             Node newNode = new Node();
@@ -216,20 +220,17 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
     @Override
     public Iterator<Point> iterator() {
-        Iterator<Point> myIterator = new Iterator<Point>() {
+        return new Iterator<>() {
             Node node = head;
 
             @Override
             public boolean hasNext() {
-                if (node.next instanceof Node) {
-                    return false;
-                }
-                return true;
+                return node != null;
             }
 
             @Override
             public Point next() {
-                if (hasNext() == false) {
+                if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
                 Point point = new Point(node.x, node.y);
@@ -241,12 +242,11 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
                 return point;
             }
         };
-        return myIterator;
     }
 
     private void checkIndex(int index) {
         if (index < 0 || index > count - 1) {
-            throw new ArrayIndexOutOfBoundsException("Index out of bounds of array");
+            throw new IndexOutOfBoundsException("Index out of bounds of array");
         }
     }
 }

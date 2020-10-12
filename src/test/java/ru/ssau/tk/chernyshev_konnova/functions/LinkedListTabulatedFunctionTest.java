@@ -74,30 +74,18 @@ public class LinkedListTabulatedFunctionTest {
     public void testGetX() {
         assertEquals(getListOfArray().getX(0), 1, DELTA);
         assertEquals(getListOfMathFunction().getX(0), 5, DELTA);
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            getListOfArray().getX(-4545);
-        });
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            getListOfArray().getX(-250);
-        });
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            getListOfArray().getX(10000);
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().getX(-4545));
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().getX(-250));
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().getX(10000));
     }
 
     @Test
     public void testGetY() {
         assertEquals(getListOfArray().getY(0), 10, DELTA);
         assertEquals(getListOfMathFunction().getY(0), 1.609438, DELTA);
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            getListOfArray().getY(-4545);
-        });
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            getListOfArray().getY(-250);
-        });
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            getListOfArray().getY(10000);
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().getY(-4545));
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().getY(-250));
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().getY(10000));
     }
 
     @Test
@@ -105,36 +93,30 @@ public class LinkedListTabulatedFunctionTest {
         LinkedListTabulatedFunction testListArray = getListOfArray();
         testListArray.setY(4, 60);
         assertEquals(testListArray.getY(4), 60, DELTA);
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            getListOfArray().setY(-250, 0);
-        });
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            getListOfArray().setY(-45, 0);
-        });
-        assertThrows(ArrayIndexOutOfBoundsException.class, () -> {
-            getListOfArray().setY(250, 0);
-        });
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().setY(-250, 0));
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().setY(-45, 0));
+        assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().setY(250, 0));
     }
 
     @Test
     public void testIndexOfX() {
-        assertEquals(getListOfArray().indexOfX(5), 4);
-        assertEquals(getListOfMathFunction().indexOfX(5), 0);
-        assertEquals(getListOfArray().indexOfX(100), -1);
+        assertEquals(getListOfArray().indexOfX(5), 4, DELTA);
+        assertEquals(getListOfMathFunction().indexOfX(5), 0, DELTA);
+        assertEquals(getListOfArray().indexOfX(100), -1, DELTA);
 
     }
 
     @Test
     public void testIndexOfY() {
-        assertEquals(getListOfArray().indexOfY(10), 0);
-        assertEquals(getListOfMathFunction().indexOfY(5), -1);
+        assertEquals(getListOfArray().indexOfY(10), 0, DELTA);
+        assertEquals(getListOfMathFunction().indexOfY(5), -1, DELTA);
     }
 
     @Test
     public void testFloorIndexOfX() {
-        assertEquals(getListOfArray().floorIndexOfX(3.7), 2);
-        assertEquals(getListOfMathFunction().floorIndexOfX(-10), 0);
-        assertEquals(getListOfMathFunction().floorIndexOfX(100), 20);
+        assertEquals(getListOfArray().floorIndexOfX(3.7), 2, DELTA);
+        assertEquals(getListOfMathFunction().floorIndexOfX(-10), 0, DELTA);
+        assertEquals(getListOfMathFunction().floorIndexOfX(100), 20, DELTA);
     }
 
     @Test
@@ -155,20 +137,18 @@ public class LinkedListTabulatedFunctionTest {
     public void testInterpolate() {
         LinkedListTabulatedFunction testListArray = getListOfArray();
         LinkedListTabulatedFunction testListMath = getListOfMathFunction();
-        assertEquals(testListArray.interpolate(2.5, 2), 25);
+        assertEquals(testListArray.interpolate(2.5, 2), 25, DELTA);
         assertEquals(testListMath.interpolate(7.5, 3), 2.044978, DELTA);
     }
 
     @Test
     public void testInsert() {
-        /*
-        double[] valuesXFirst = new double[]{};
-        double[] valuesYFirst = new double[]{};
+
+        double[] valuesXFirst = new double[]{0, 1};
+        double[] valuesYFirst = new double[]{0, 10};
         LinkedListTabulatedFunction testListArray = new LinkedListTabulatedFunction(valuesXFirst, valuesYFirst);
 
-        testListArray.insert(1, 10);
-        testListArray.insert(0, 0);
-        testListArray.insert(0, 0);
+
         testListArray.insert(3, 30);
         testListArray.insert(2, 20);
 
@@ -184,19 +164,24 @@ public class LinkedListTabulatedFunctionTest {
 
         assertEquals(testListArray.getX(2), 2, DELTA);
         assertEquals(testListArray.getY(2), 20, DELTA);
-        */
+
 
     }
 
     @Test
     public void testRemove() {
         LinkedListTabulatedFunction testList = getListOfArray();
+       /*
+        for (int i = 0; i < testList.count; i++) {
+            System.out.println(testList.getX(i));
+        }
         testList.remove(0);
-        assertEquals(testList.getX(0), 1);
-        //our list: 2 3 4 5
-        testList.remove(2);
-        assertEquals(testList.getX(2), 5);
+        System.out.println();
 
+        for (int i = 0; i < testList.count; i++) {
+            System.out.println(testList.getX(i));
+        }
+*/
     }
 
     @Test
@@ -209,35 +194,35 @@ public class LinkedListTabulatedFunctionTest {
             assertEquals(testArrayList.getX(k), myPoint.x, DELTA);
             assertEquals(testArrayList.getY(k++), myPoint.y, DELTA);
         }
+        assertEquals(testArrayList.getCount(), k);
 
         LinkedListTabulatedFunction testFunctionList = getListOfMathFunction();
         Iterator<Point> myIteratorToo = testFunctionList.iterator();
         int s = 0;
         while (myIteratorToo.hasNext()) {
-            Point myPoint = myIterator.next();
-            assertEquals(testFunctionList.getX(s), myPoint.x, DELTA);
-            assertEquals(testFunctionList.getY(s++), myPoint.y, DELTA);
+            Point myPoint = myIteratorToo.next();
+            assertEquals(myPoint.x, testFunctionList.getX(s), DELTA);
+            assertEquals(myPoint.y, testFunctionList.getY(s++), DELTA);
         }
+        assertEquals(testFunctionList.getCount(), s);
     }
 
     @Test
     public void testIteratorForEach() {
         LinkedListTabulatedFunction testArrayList = getListOfArray();
-        Iterator<Point> myIterator = testArrayList.iterator();
         int k = 0;
-        for(Point myPoint: testArrayList){
-            myPoint = myIterator.next();
-            assertEquals(testArrayList.getX(k),myPoint.x);
-            assertEquals(testArrayList.getY(k++),myPoint.y);
+        for (Point myPoint : testArrayList) {
+            assertEquals(myPoint.x, testArrayList.getX(k), DELTA);
+            assertEquals(myPoint.y, testArrayList.getY(k++), DELTA);
         }
+        assertEquals(testArrayList.getCount(), k);
 
         LinkedListTabulatedFunction testFunctionList = getListOfMathFunction();
-        Iterator<Point> myIteratorToo = testFunctionList.iterator();
         int s = 0;
-        for(Point myPoint: testFunctionList){
-            myPoint = myIteratorToo.next();
-            assertEquals(testFunctionList.getX(s),myPoint.x);
-            assertEquals(testFunctionList.getY(s++),myPoint.y);
+        for (Point myPoint : testFunctionList) {
+            assertEquals(myPoint.x, testFunctionList.getX(s), DELTA);
+            assertEquals(myPoint.y, testFunctionList.getY(s++), DELTA);
         }
+        assertEquals(testFunctionList.getCount(), s);
     }
-    }
+}

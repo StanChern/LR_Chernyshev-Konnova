@@ -121,6 +121,10 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     @Override
     public void remove(int index) {
+        if (count == 2) {
+            throw new UnsupportedOperationException("Length will become less than 2 points");
+        }
+
         double[] xTempValues = new double[count];
         double[] yTempValues = new double[count];
 
@@ -186,6 +190,6 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     @Override
     public Iterator<Point> iterator() {
-       throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 }

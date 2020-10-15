@@ -139,7 +139,7 @@ public class ArrayTabulatedFunctionTest {
         testDefinedThroughArrays.remove(3);
         testDefinedThroughArrays.remove(0);
        /* our start array: [(-27, -3) (-8, -2) (-1, -1) (0, 0) (1, 1) (8, 2) (27, 3)]
-        our start array: [(-8, -2) (-1, -1) (1, 1) (8, 2)] */
+        our result array: [(-8, -2) (-1, -1) (1, 1) (8, 2)] */
         assertEquals(testDefinedThroughArrays.getX(0), -8, DELTA);
         assertEquals(testDefinedThroughArrays.getX(1), -1, DELTA);
         assertEquals(testDefinedThroughArrays.getX(2), 1, DELTA);

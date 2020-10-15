@@ -1,5 +1,7 @@
 package ru.ssau.tk.chernyshev_konnova.functions;
 
+import ru.ssau.tk.chernyshev_konnova.exceptions.*;
+
 public abstract class AbstractTabulatedFunction implements TabulatedFunction {
 
     protected int count;
@@ -31,5 +33,19 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
             return (getY(index));
         }
         return (interpolate(x, floorIndexOfX(x)));
+    }
+
+    void checkLengthIsTheSame(double[] xValues, double[] yValues) {
+        if (xValues.length != yValues.length) {
+            throw new DifferentLengthOfArraysException("Lengths of xValues and yValues are different");
+        }
+    }
+
+    void checkSorted(double[] xValues) {
+        for (int i = 0; i < xValues.length - 1; i++) {
+            if (xValues[i + 1] < xValues[i]) {
+                throw new ArrayIsNotSortedException("xValues is not sort");
+            }
+        }
     }
 }

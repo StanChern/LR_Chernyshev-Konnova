@@ -115,7 +115,7 @@ public class LinkedListTabulatedFunctionTest {
     @Test
     public void testFloorIndexOfX() {
         assertEquals(getListOfArray().floorIndexOfX(3.7), 2, DELTA);
-        assertEquals(getListOfMathFunction().floorIndexOfX(-10), 0, DELTA);
+        assertThrows(IllegalArgumentException.class, () -> getListOfArray().floorIndexOfX(-10));
         assertEquals(getListOfMathFunction().floorIndexOfX(100), 20, DELTA);
     }
 

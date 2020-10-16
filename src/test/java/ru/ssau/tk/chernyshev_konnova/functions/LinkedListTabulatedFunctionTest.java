@@ -1,6 +1,7 @@
 package ru.ssau.tk.chernyshev_konnova.functions;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk.chernyshev_konnova.exceptions.InterpolationException;
 
 import java.util.Iterator;
 
@@ -137,8 +138,10 @@ public class LinkedListTabulatedFunctionTest {
     public void testInterpolate() {
         LinkedListTabulatedFunction testListArray = getListOfArray();
         LinkedListTabulatedFunction testListMath = getListOfMathFunction();
-        assertEquals(testListArray.interpolate(2.5, 2), 25, DELTA);
-        assertEquals(testListMath.interpolate(7.5, 3), 2.044978, DELTA);
+        assertEquals(testListArray.interpolate(2.5, 1), 25, DELTA);
+        assertEquals(testListMath.interpolate(7.5, 9), 2.014749, DELTA);
+        assertThrows(InterpolationException.class, () -> testListArray.interpolate(2.5, 2));
+        assertThrows(InterpolationException.class, () -> testListMath.interpolate(7.5, 3));
     }
 
     @Test

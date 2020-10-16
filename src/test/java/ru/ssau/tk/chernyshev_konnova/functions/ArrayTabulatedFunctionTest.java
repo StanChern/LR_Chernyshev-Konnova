@@ -1,6 +1,7 @@
 package ru.ssau.tk.chernyshev_konnova.functions;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk.chernyshev_konnova.exceptions.InterpolationException;
 
 import static org.testng.Assert.*;
 import static ru.ssau.tk.chernyshev_konnova.functions.SomeConstants.*;
@@ -45,6 +46,8 @@ public class ArrayTabulatedFunctionTest {
     public void testInterpolate() {
         assertEquals(getDefinedThroughArrays().interpolate(0.5, getDefinedThroughArrays().floorIndexOfX(0.5)), 0.5, DELTA);
         assertEquals(getDefinedThroughMathFunction().interpolate(0.125, getDefinedThroughMathFunction().floorIndexOfX(0.125)), 0.31498, DELTA);
+        assertThrows(InterpolationException.class, () -> getDefinedThroughArrays().interpolate(0.5, 2));
+        assertThrows(InterpolationException.class, () -> getDefinedThroughMathFunction().interpolate(7.5, 3));
     }
 
     @Test

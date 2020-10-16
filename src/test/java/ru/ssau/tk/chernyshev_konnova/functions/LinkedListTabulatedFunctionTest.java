@@ -15,7 +15,6 @@ public class LinkedListTabulatedFunctionTest {
     private final MathFunction testFunction = new LnFunction();
 
     private LinkedListTabulatedFunction getListOfArray() {
-
         return new LinkedListTabulatedFunction(xValues, yValues);
     }
 

@@ -40,4 +40,12 @@ public class AbstractTabulatedFunctionTest {
             AbstractTabulatedFunction.checkSorted(valuesX);
         });
     }
+
+    @Test
+    public void testTestToString() {
+        double[] x = {1, 2, 3};
+        double[] y = {10, 20, 30};
+        TabulatedFunction arrayFunction = new ArrayTabulatedFunction(x, y);
+        assertEquals(arrayFunction.toString(), "ArrayTabulatedFunction size = 3\n[1.0; 10.0]\n[2.0; 20.0]\n[3.0; 30.0]");
+    }
 }

@@ -1,6 +1,7 @@
 package ru.ssau.tk.chernyshev_konnova.operations;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk.chernyshev_konnova.exceptions.*;
 import ru.ssau.tk.chernyshev_konnova.functions.*;
 import ru.ssau.tk.chernyshev_konnova.functions.factory.ArrayTabulatedFunctionFactory;
 import ru.ssau.tk.chernyshev_konnova.functions.factory.LinkedListTabulatedFunctionFactory;
@@ -60,8 +61,15 @@ public class TabulatedFunctionOperationServiceTest {
         ArrayTabulatedFunction testArrayFunction = getTestArray();
         LinkedListTabulatedFunction testListFunction = getTestList();
 
-        //Тут будут тесты для исключений
+        final double[] errorX = new double[]{0, 1, 2};
+        final double[] errorY = new double[]{0, 1, 2};
+        TabulatedFunction errorTest = new ArrayTabulatedFunction(errorX, errorY);
+        assertThrows(InconsistentFunctionsException.class, () -> new TabulatedFunctionOperationService().sum(testListFunction, errorTest));
 
+        final double[] errorX1 = new double[]{-27, -8, -1, 0, 1, 8, 28};
+        final double[] errorY1 = new double[]{-3, -2, -1, -0, 1, 2, 3};
+        TabulatedFunction errorTest1 = new ArrayTabulatedFunction(errorX1, errorY1);
+        assertThrows(InconsistentFunctionsException.class, () -> new TabulatedFunctionOperationService().sum(testListFunction, errorTest1));
 
         TabulatedFunction testSumOfArrays = new TabulatedFunctionOperationService().sum(testArrayFunction, testArrayFunction);
         int i = 0;

@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 import ru.ssau.tk.chernyshev_konnova.exceptions.InterpolationException;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.testng.Assert.*;
 import static ru.ssau.tk.chernyshev_konnova.functions.SomeConstants.*;
@@ -12,14 +13,27 @@ public class LinkedListTabulatedFunctionTest {
 
     private final double[] xValues = new double[]{1, 2, 3, 4, 5};
     private final double[] yValues = new double[]{10, 20, 30, 40, 50};
-    private final MathFunction testFunction = new LnFunction();
+    private final MathFunction lnFunction = new LnFunction();
 
     private LinkedListTabulatedFunction getListOfArray() {
         return new LinkedListTabulatedFunction(xValues, yValues);
     }
 
     private LinkedListTabulatedFunction getListOfMathFunction() {
-        return new LinkedListTabulatedFunction(testFunction, 5, 10, 20);
+        return new LinkedListTabulatedFunction(lnFunction, 5, 10, 20);
+    }
+
+    @Test
+    public void testLinkedListTabulatedFunction() {
+        double[] xValues = {5.8};
+        double[] yValues = {0.2};
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(xValues, yValues));
+        double[] xValues1 = new double[]{};
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(xValues1, yValues));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(lnFunction, 10, 2, 10));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(lnFunction, -5, 5, 1));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(lnFunction, 100, 200, -5));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(lnFunction, 2452, 5, 100000));
     }
 
     @Test
@@ -36,7 +50,6 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testGetNode() {
-        // LinkedListTabulatedFunction testList = getListOfArray();
         assertEquals(getListOfArray().getX(0), 1, DELTA);
         assertEquals(getListOfArray().getX(1), 2, DELTA);
         assertEquals(getListOfArray().getX(2), 3, DELTA);
@@ -90,7 +103,7 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testSetY() {
-        LinkedListTabulatedFunction testListArray = getListOfArray();
+        TabulatedFunction testListArray = getListOfArray();
         testListArray.setY(4, 60);
         assertEquals(testListArray.getY(4), 60, DELTA);
         assertThrows(IndexOutOfBoundsException.class, () -> getListOfArray().setY(-250, 0));
@@ -188,7 +201,7 @@ public class LinkedListTabulatedFunctionTest {
 
     @Test
     public void testIteratorWhile() {
-        LinkedListTabulatedFunction testArrayList = getListOfArray();
+        TabulatedFunction testArrayList = getListOfArray();
         Iterator<Point> myIterator = testArrayList.iterator();
         int k = 0;
         while (myIterator.hasNext()) {
@@ -198,7 +211,7 @@ public class LinkedListTabulatedFunctionTest {
         }
         assertEquals(testArrayList.getCount(), k);
 
-        LinkedListTabulatedFunction testFunctionList = getListOfMathFunction();
+        TabulatedFunction testFunctionList = getListOfMathFunction();
         Iterator<Point> myIteratorToo = testFunctionList.iterator();
         int s = 0;
         while (myIteratorToo.hasNext()) {
@@ -207,11 +220,12 @@ public class LinkedListTabulatedFunctionTest {
             assertEquals(myPoint.y, testFunctionList.getY(s++), DELTA);
         }
         assertEquals(testFunctionList.getCount(), s);
+        assertThrows(NoSuchElementException.class, myIterator::next);
     }
 
     @Test
     public void testIteratorForEach() {
-        LinkedListTabulatedFunction testArrayList = getListOfArray();
+        TabulatedFunction testArrayList = getListOfArray();
         int k = 0;
         for (Point myPoint : testArrayList) {
             assertEquals(myPoint.x, testArrayList.getX(k), DELTA);
@@ -219,7 +233,7 @@ public class LinkedListTabulatedFunctionTest {
         }
         assertEquals(testArrayList.getCount(), k);
 
-        LinkedListTabulatedFunction testFunctionList = getListOfMathFunction();
+        TabulatedFunction testFunctionList = getListOfMathFunction();
         int s = 0;
         for (Point myPoint : testFunctionList) {
             assertEquals(myPoint.x, testFunctionList.getX(s), DELTA);

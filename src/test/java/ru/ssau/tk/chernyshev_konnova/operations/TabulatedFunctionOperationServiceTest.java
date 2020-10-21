@@ -24,7 +24,7 @@ public class TabulatedFunctionOperationServiceTest {
 
     @Test
     public void testAsPoints() {
-        ArrayTabulatedFunction testArrayFunction = getTestArray();
+        TabulatedFunction testArrayFunction = getTestArray();
         Point[] Points = TabulatedFunctionOperationService.asPoints(testArrayFunction);
         int i = 0;
         for (Point myPoint : Points) {
@@ -33,7 +33,7 @@ public class TabulatedFunctionOperationServiceTest {
         }
         assertEquals(testArrayFunction.getCount(), i);
 
-        LinkedListTabulatedFunction testListFunction = getTestList();
+        TabulatedFunction testListFunction = getTestList();
         Points = TabulatedFunctionOperationService.asPoints(testListFunction);
         i = 0;
         for (Point myPoint : Points) {
@@ -58,8 +58,8 @@ public class TabulatedFunctionOperationServiceTest {
 
     @Test
     public void testSum() {
-        ArrayTabulatedFunction testArrayFunction = getTestArray();
-        LinkedListTabulatedFunction testListFunction = getTestList();
+        TabulatedFunction testArrayFunction = getTestArray();
+        TabulatedFunction testListFunction = getTestList();
 
         final double[] errorX = new double[]{0, 1, 2};
         final double[] errorY = new double[]{0, 1, 2};
@@ -96,8 +96,8 @@ public class TabulatedFunctionOperationServiceTest {
 
     @Test
     public void testSubtract() {
-        ArrayTabulatedFunction testArrayFunction = getTestArray();
-        LinkedListTabulatedFunction testListFunction = getTestList();
+        TabulatedFunction testArrayFunction = getTestArray();
+        TabulatedFunction testListFunction = getTestList();
 
         TabulatedFunction testSubtractOfArrays = new TabulatedFunctionOperationService().subtract(testArrayFunction, testArrayFunction);
         int i = 0;

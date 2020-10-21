@@ -26,7 +26,7 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         if (count < 2) {
             throw new IllegalArgumentException("Length less than 2 points");
         }
-        if ((xFrom >= xTo) || (xFrom < 0) | (xTo < 0)) {
+        if (xFrom >= xTo) {
             throw new IllegalArgumentException("Incorrect parameter values");
         }
         this.count = count;
@@ -81,19 +81,16 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     @Override
     public double getX(int index) {
-        checkIndex(index);
         return xValues[index];
     }
 
     @Override
     public double getY(int index) {
-        checkIndex(index);
         return yValues[index];
     }
 
     @Override
     public void setY(int index, double value) {
-        checkIndex(index);
         yValues[index] = value;
     }
 
@@ -188,12 +185,6 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
         this.xValues = newXValues;
         this.yValues = newYValues;
         count++;
-    }
-
-    private void checkIndex(int index) {
-        if (index < 0 || index > count - 1) {
-            throw new ArrayIndexOutOfBoundsException("Index out of bounds of array");
-        }
     }
 
     @Override

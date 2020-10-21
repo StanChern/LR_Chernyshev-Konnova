@@ -4,6 +4,7 @@ import org.testng.annotations.Test;
 import ru.ssau.tk.chernyshev_konnova.exceptions.InterpolationException;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.testng.Assert.*;
 import static ru.ssau.tk.chernyshev_konnova.functions.SomeConstants.*;
@@ -21,6 +22,18 @@ public class ArrayTabulatedFunctionTest {
         return new ArrayTabulatedFunction(cbrtFunction, 0, 27, 109);
     }
 
+    @Test
+    public void testArrayTabulatedFunction() {
+        double[] xValues = {5.8};
+        double[] yValues = {0.2};
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(xValues, yValues));
+        double[] xValues1 = new double[]{};
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(xValues1, yValues));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(cbrtFunction, 10, 2, 10));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(cbrtFunction, -5, 5, 1));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(cbrtFunction, 100, 200, -5));
+        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(cbrtFunction, 2452, 5, 100000));
+    }
 
     @Test
     public void testFloorIndexOfX() {
@@ -86,8 +99,8 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testSetY() {
-        ArrayTabulatedFunction testDefinedThroughArrays = getDefinedThroughArrays();
-        ArrayTabulatedFunction testDefinedThroughMathFunction = getDefinedThroughMathFunction();
+        TabulatedFunction testDefinedThroughArrays = getDefinedThroughArrays();
+        TabulatedFunction testDefinedThroughMathFunction = getDefinedThroughMathFunction();
 
         testDefinedThroughArrays.setY(5, 100500);
         testDefinedThroughMathFunction.setY(0, 1009);
@@ -170,7 +183,7 @@ public class ArrayTabulatedFunctionTest {
 
     @Test
     public void testIteratorWhile() {
-        ArrayTabulatedFunction testDefinedThroughArrays = getDefinedThroughArrays();
+        TabulatedFunction testDefinedThroughArrays = getDefinedThroughArrays();
         Iterator<Point> myIterator = testDefinedThroughArrays.iterator();
         int i = 0;
         while (myIterator.hasNext()) {
@@ -180,7 +193,7 @@ public class ArrayTabulatedFunctionTest {
         }
         assertEquals(testDefinedThroughArrays.getCount(), i);
 
-        ArrayTabulatedFunction testDefinedThroughMathFunction = getDefinedThroughMathFunction();
+        TabulatedFunction testDefinedThroughMathFunction = getDefinedThroughMathFunction();
         myIterator = testDefinedThroughMathFunction.iterator();
         i = 0;
         while (myIterator.hasNext()) {
@@ -189,11 +202,13 @@ public class ArrayTabulatedFunctionTest {
             assertEquals(testDefinedThroughMathFunction.getY(i++), myPoint.y, DELTA);
         }
         assertEquals(testDefinedThroughMathFunction.getCount(), i);
+        assertThrows(NoSuchElementException.class, myIterator::next);
+
     }
 
     @Test
     public void testIteratorForEach() {
-        ArrayTabulatedFunction testDefinedThroughArrays = getDefinedThroughArrays();
+        TabulatedFunction testDefinedThroughArrays = getDefinedThroughArrays();
         int i = 0;
         for (Point myPoint : testDefinedThroughArrays) {
             assertEquals(myPoint.x, testDefinedThroughArrays.getX(i), DELTA);
@@ -201,7 +216,7 @@ public class ArrayTabulatedFunctionTest {
         }
         assertEquals(testDefinedThroughArrays.getCount(), i);
 
-        ArrayTabulatedFunction testDefinedThroughMathFunction = getDefinedThroughMathFunction();
+        TabulatedFunction testDefinedThroughMathFunction = getDefinedThroughMathFunction();
         i = 0;
         for (Point myPoint : testDefinedThroughMathFunction) {
             assertEquals(myPoint.x, testDefinedThroughMathFunction.getX(i), DELTA);

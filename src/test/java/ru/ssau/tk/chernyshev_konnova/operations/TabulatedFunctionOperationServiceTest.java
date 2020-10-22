@@ -123,8 +123,8 @@ public class TabulatedFunctionOperationServiceTest {
 
     @Test
     public void testMultiply() {
-        ArrayTabulatedFunction testArrayFunction = getTestArray();
-        LinkedListTabulatedFunction testListFunction = getTestList();
+        TabulatedFunction testArrayFunction = getTestArray();
+        TabulatedFunction testListFunction = getTestList();
 
         TabulatedFunction testMultiplyOfArrays = new TabulatedFunctionOperationService().multiply(testArrayFunction, testArrayFunction);
         int i = 0;
@@ -150,8 +150,8 @@ public class TabulatedFunctionOperationServiceTest {
 
     @Test
     public void testDivide() {
-        ArrayTabulatedFunction testArrayFunction = getTestArray();
-        LinkedListTabulatedFunction testListFunction = getTestList();
+        TabulatedFunction testArrayFunction = getTestArray();
+        TabulatedFunction testListFunction = getTestList();
 
         TabulatedFunction testDivideOfArrays = new TabulatedFunctionOperationService().divide(testArrayFunction, testArrayFunction);
         int i = 0;

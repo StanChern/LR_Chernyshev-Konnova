@@ -13,6 +13,5 @@ public class LinkedListTabulatedFunctionFactoryTest {
     public void testCreate() {
         var testListFunction = new LinkedListTabulatedFunctionFactory().create(valuesX, valuesY);
         assertTrue(testListFunction instanceof LinkedListTabulatedFunction);
-
     }
 }

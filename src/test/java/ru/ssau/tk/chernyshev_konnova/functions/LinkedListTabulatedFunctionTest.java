@@ -27,13 +27,13 @@ public class LinkedListTabulatedFunctionTest {
     public void testLinkedListTabulatedFunction() {
         double[] xValues = {5.8};
         double[] yValues = {0.2};
-        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(xValues, yValues));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(xValues, yValues));
         double[] xValues1 = new double[]{};
-        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(xValues1, yValues));
-        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(lnFunction, 10, 2, 10));
-        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(lnFunction, -5, 5, 1));
-        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(lnFunction, 100, 200, -5));
-        assertThrows(IllegalArgumentException.class, () -> new ArrayTabulatedFunction(lnFunction, 2452, 5, 100000));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(xValues1, yValues));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(lnFunction, 10, 2, 10));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(lnFunction, -5, 5, 1));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(lnFunction, 100, 200, -5));
+        assertThrows(IllegalArgumentException.class, () -> new LinkedListTabulatedFunction(lnFunction, 2452, 5, 100000));
     }
 
     @Test

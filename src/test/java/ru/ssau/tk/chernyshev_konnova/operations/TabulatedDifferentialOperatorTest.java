@@ -14,7 +14,7 @@ public class TabulatedDifferentialOperatorTest {
         TabulatedFunction testList = new LinkedListTabulatedFunction(new double[]{1, 2, 3, 4, 5, 6}, new double[]{1, 4, 9, 16, 25, 36});
         TabulatedDifferentialOperator differentialListOperator = new TabulatedDifferentialOperator(new LinkedListTabulatedFunctionFactory());
         testList = differentialListOperator.derive(testList);
-
+        assertTrue(testList instanceof LinkedListTabulatedFunction);
         assertEquals(testList.getX(0), 1);
         assertEquals(testList.getX(1), 2);
         assertEquals(testList.getX(2), 3);
@@ -29,5 +29,22 @@ public class TabulatedDifferentialOperatorTest {
         assertEquals(testList.getY(4), 11);
         assertEquals(testList.getY(5), 11);
 
+        TabulatedFunction testArray = new ArrayTabulatedFunction(new double[]{1, 2, 3, 4, 5, 6}, new double[]{10, 40, 90, 160, 250, 360});
+        TabulatedDifferentialOperator differentialArrayOperator = new TabulatedDifferentialOperator(new ArrayTabulatedFunctionFactory());
+        testArray = differentialArrayOperator.derive(testArray);
+        assertTrue(testArray instanceof ArrayTabulatedFunction);
+        assertEquals(testArray.getX(0), 1);
+        assertEquals(testArray.getX(1), 2);
+        assertEquals(testArray.getX(2), 3);
+        assertEquals(testArray.getX(3), 4);
+        assertEquals(testArray.getX(4), 5);
+        assertEquals(testArray.getX(5), 6);
+
+        assertEquals(testArray.getY(0), 30);
+        assertEquals(testArray.getY(1), 50);
+        assertEquals(testArray.getY(2), 70);
+        assertEquals(testArray.getY(3), 90);
+        assertEquals(testArray.getY(4), 110);
+        assertEquals(testArray.getY(5), 110);
     }
 }

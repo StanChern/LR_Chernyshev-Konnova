@@ -40,6 +40,6 @@ public class TabulatedFunctionFactoryTest {
         TabulatedFunctionFactory arrayFactory2 = new LinkedListTabulatedFunctionFactory();
         TabulatedFunction strictUnmodifiableArrayFunction = arrayFactory2.createStrictUnmodifiable(x, y);
         assertTrue(strictUnmodifiableArrayFunction instanceof StrictTabulatedFunction);
-        assertThrows(UnsupportedOperationException.class, () -> strictUnmodifiableListFunction.setY(1, 0));
+        assertThrows(UnsupportedOperationException.class, () -> strictUnmodifiableArrayFunction.setY(1, 0));
     }
 }

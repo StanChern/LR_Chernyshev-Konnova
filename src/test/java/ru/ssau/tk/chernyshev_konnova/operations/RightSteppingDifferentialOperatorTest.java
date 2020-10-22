@@ -11,7 +11,7 @@ public class RightSteppingDifferentialOperatorTest {
     @Test
     public void testDerive() {
         SteppingDifferentialOperator differentialOperator = new RightSteppingDifferentialOperator(step);
-        assertEquals(differentialOperator.derive(new SqrFunction()).apply(1), 2, DELTA);
-        assertEquals(differentialOperator.derive(new SqrFunction()).apply(2), 4, DELTA);
+        assertEquals(differentialOperator.derive(new SqrFunction()).apply(1), 2.01, DELTA);
+        assertEquals(differentialOperator.derive(new SqrFunction()).apply(2), 4.01, DELTA);
     }
 }

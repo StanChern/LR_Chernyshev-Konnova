@@ -10,7 +10,7 @@ public class MiddleSteppingDifferentialOperatorTest {
 
     @Test
     public void testDerive() {
-        SteppingDifferentialOperator differentialOperator = new RightSteppingDifferentialOperator(step);
+        SteppingDifferentialOperator differentialOperator = new MiddleSteppingDifferentialOperator(step);
         assertEquals(differentialOperator.derive(new SqrFunction()).apply(1), 2, DELTA);
         assertEquals(differentialOperator.derive(new SqrFunction()).apply(2), 4, DELTA);
     }

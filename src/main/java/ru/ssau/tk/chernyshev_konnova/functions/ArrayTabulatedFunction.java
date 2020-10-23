@@ -130,25 +130,14 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
             throw new UnsupportedOperationException("Length will become less than 2 points");
         }
 
-        double[] xTempValues = new double[count];
-        double[] yTempValues = new double[count];
-
-        if (index == 0) {
-            System.arraycopy(xValues, 1, xTempValues, 0, count - 1);
-            System.arraycopy(yValues, 1, yTempValues, 0, count - 1);
-        }
-
-        if (index == count) {
-            System.arraycopy(xValues, 0, xTempValues, 0, count - 1);
-            System.arraycopy(yValues, 0, yTempValues, 0, count - 1);
-
-        } else {
+        double[] xTempValues = new double[count - 1];
+        double[] yTempValues = new double[count - 1];
+        {
             System.arraycopy(xValues, 0, xTempValues, 0, index);
             System.arraycopy(yValues, 0, yTempValues, 0, index);
             System.arraycopy(xValues, index + 1, xTempValues, index, count - index - 1);
             System.arraycopy(yValues, index + 1, yTempValues, index, count - index - 1);
         }
-
         this.xValues = xTempValues;
         this.yValues = yTempValues;
         count--;
@@ -156,35 +145,38 @@ public class ArrayTabulatedFunction extends AbstractTabulatedFunction implements
 
     @Override
     public void insert(double x, double y) {
-        int indexOfX = indexOfX(x);
-        if (indexOfX != -1) {
-            setY(indexOfX, y);
-        }
-        double[] newXValues = new double[count + 1];
-        double[] newYValues = new double[count + 1];
-       /* if (indexOfX == 0) {
-            newXValues[0] = x;
-            newYValues[0] = y;
-            System.arraycopy(xValues, 0, newXValues, 1, count);
-            System.arraycopy(yValues, 0, newYValues, 1, count);
-        }
-        if (indexOfX == count) {
-            System.arraycopy(xValues, 0, newXValues, 0, count);
-            System.arraycopy(yValues, 0, newYValues, 0, count);
-            newXValues[count] = x;
-            newYValues[count] = y;
-        }*/
+        if (indexOfX(x) != -1) {
+            setY(indexOfX(x), y);
+        } else {
+            double[] newXValues = new double[count + 1];
+            double[] newYValues = new double[count + 1];
 
-        System.arraycopy(xValues, 0, newXValues, 0, indexOfX + 1);
-        System.arraycopy(yValues, 0, newYValues, 0, indexOfX + 1);
-        newXValues[indexOfX + 1] = x;
-        newYValues[indexOfX + 1] = y;
-        System.arraycopy(xValues, indexOfX + 1, newXValues, indexOfX + 1, count - indexOfX + 1);
-        System.arraycopy(xValues, indexOfX + 1, newXValues, indexOfX + 1, count - indexOfX + 1);
+            if (x < xValues[0]) {
+                newXValues[0] = x;
+                newYValues[0] = y;
+                System.arraycopy(xValues, 0, newXValues, 1, count);
+                System.arraycopy(yValues, 0, newYValues, 1, count);
+            } else {
+                if (x > xValues[count - 1]) {
+                    System.arraycopy(xValues, 0, newXValues, 0, count);
+                    System.arraycopy(yValues, 0, newYValues, 0, count);
+                    newXValues[count] = x;
+                    newYValues[count] = y;
+                } else {
+                    int i = floorIndexOfX(x);
+                    System.arraycopy(xValues, 0, newXValues, 0, i + 1);
+                    System.arraycopy(yValues, 0, newYValues, 0, i + 1);
+                    newXValues[i + 1] = x;
+                    newYValues[i + 1] = y;
+                    System.arraycopy(xValues, i + 1, newXValues, i + 2, count - i - 1);
+                    System.arraycopy(yValues, i + 1, newYValues, i + 2, count - i - 1);
+                }
+            }
+            this.xValues = newXValues;
+            this.yValues = newYValues;
+            count++;
+        }
 
-        this.xValues = newXValues;
-        this.yValues = newYValues;
-        count++;
     }
 
     @Override

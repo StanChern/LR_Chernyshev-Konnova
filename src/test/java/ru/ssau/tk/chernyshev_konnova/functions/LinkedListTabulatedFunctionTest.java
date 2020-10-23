@@ -163,7 +163,6 @@ public class LinkedListTabulatedFunctionTest {
         double[] valuesYFirst = new double[]{0, 10};
         LinkedListTabulatedFunction testListArray = new LinkedListTabulatedFunction(valuesXFirst, valuesYFirst);
 
-
         testListArray.insert(3, 30);
         testListArray.insert(2, 20);
 
@@ -179,24 +178,20 @@ public class LinkedListTabulatedFunctionTest {
 
         assertEquals(testListArray.getX(2), 2, DELTA);
         assertEquals(testListArray.getY(2), 20, DELTA);
-
-
     }
 
     @Test
     public void testRemove() {
         LinkedListTabulatedFunction testList = getListOfArray();
-       /*
-        for (int i = 0; i < testList.count; i++) {
-            System.out.println(testList.getX(i));
-        }
         testList.remove(0);
-        System.out.println();
-
-        for (int i = 0; i < testList.count; i++) {
-            System.out.println(testList.getX(i));
-        }
-*/
+        testList.remove(3);
+        testList.remove(1);
+       /* our start list: [(1, 10) (2, 20) (3, 30) (4, 40) (5, 50)]
+        our result list: [(2, 20) (4, 40)] */
+        assertEquals(testList.getX(0), 2, DELTA);
+        assertEquals(testList.getX(1), 4, DELTA);
+        assertEquals(testList.getY(0), 20, DELTA);
+        assertEquals(testList.getY(1), 40, DELTA);
     }
 
     @Test

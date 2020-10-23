@@ -183,10 +183,11 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         if (count == 2) {
             throw new UnsupportedOperationException("Length will become less than 2 points");
         }
-        if (index == 0) {
-            // я пыталась, у меня не получилось .-.
+
+        Node deletedNode = getNode(index);
+        if (deletedNode == head) {
+            head=deletedNode.next;
         } else {
-            Node deletedNode = getNode(index);
             deletedNode.prev.next = deletedNode.next;
             deletedNode.next.prev = deletedNode.prev;
         }

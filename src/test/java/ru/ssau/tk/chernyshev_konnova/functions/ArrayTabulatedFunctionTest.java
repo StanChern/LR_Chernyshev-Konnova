@@ -162,23 +162,45 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(testDefinedThroughArrays.getX(1), -1, DELTA);
         assertEquals(testDefinedThroughArrays.getX(2), 1, DELTA);
         assertEquals(testDefinedThroughArrays.getX(3), 8, DELTA);
+        assertEquals(testDefinedThroughArrays.getY(0), -2, DELTA);
+        assertEquals(testDefinedThroughArrays.getY(1), -1, DELTA);
+        assertEquals(testDefinedThroughArrays.getY(2), 1, DELTA);
+        assertEquals(testDefinedThroughArrays.getY(3), 2, DELTA);
     }
 
     @Test
     public void testInsert() {
-       /* double[] x = new double[]{1, 2, 3};
+        double[] x = new double[]{1, 2, 3};
         double[] y = new double[]{10, 20, 30};
-        ArrayTabulatedFunction array = new ArrayTabulatedFunction(x, y);
-        array.insert(0, 0);
-        assertEquals(array.getY(0), 0);
-        array.insert(6, 5);
-        assertEquals(array.getY(4), 5);
-        array.insert(6, 60);
-        assertEquals(array.getY(4), 60);
-        array.insert(4, 40);
-        assertEquals(array.getY(4), 40);
-        array.insert(5, 50);
-        assertEquals(array.getY(5), 50);*/
+        // our start array: [(1, 10) (2, 20) (3, 30)]
+
+        ArrayTabulatedFunction testArray = new ArrayTabulatedFunction(x, y);
+
+        testArray.insert(0, 0);
+        // our array: [(0,0) (1, 10) (2, 20) (3, 30)]
+        assertEquals(testArray.getY(0), 0);
+
+        testArray.insert(6, 5);
+        // our array: [(0,0) (1, 10) (2, 20) (3, 30) (6, 5)]
+        assertEquals(testArray.getY(4), 5);
+
+        testArray.insert(6, 60);
+        // our array: [(0,0) (1, 10) (2, 20) (3, 30) (6, 60)]
+        assertEquals(testArray.getY(4), 60);
+
+        testArray.insert(4, 40);
+        // our array: [(0,0) (1, 10) (2, 20) (3, 30) (4, 40) (6, 60)]
+        assertEquals(testArray.getY(4), 40);
+
+        testArray.insert(5, 50);
+        // our result array: [(0,0) (1, 10) (2, 20) (3, 30) (4, 40) (5, 50) (6, 60)]
+        assertEquals(testArray.getY(5), 50);
+
+        //Проверим все значения valuesX и valuesY еще раз
+        for (int i = 0; i <= 5; i++) {
+            assertEquals(testArray.getX(i), i);
+            assertEquals(testArray.getY(i), i * 10);
+        }
     }
 
     @Test

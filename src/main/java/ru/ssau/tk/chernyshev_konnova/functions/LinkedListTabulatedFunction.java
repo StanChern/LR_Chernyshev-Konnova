@@ -186,7 +186,7 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
 
         Node deletedNode = getNode(index);
         if (deletedNode == head) {
-            head=deletedNode.next;
+            head = deletedNode.next;
         } else {
             deletedNode.prev.next = deletedNode.next;
             deletedNode.next.prev = deletedNode.prev;
@@ -201,23 +201,23 @@ public class LinkedListTabulatedFunction extends AbstractTabulatedFunction imple
         } else if (indexOfX(x) != -1) {
             setY(indexOfX(x), y);
         } else {
-            int index = floorIndexOfX(x);
             Node newNode = new Node();
             newNode.x = x;
             newNode.y = y;
 
-            if (index == 0) {
+            if (x <= head.x) {
                 newNode.next = head;
                 newNode.prev = head.prev;
                 head.prev.next = newNode;
                 head = newNode;
             } else {
-                if (index == count) {
+                if (x >= head.prev.x) {
                     newNode.next = head;
                     newNode.prev = head.prev;
                     head.prev.next = newNode;
                     head.prev = newNode;
                 } else {
+                    int index = floorIndexOfX(x);
                     Node previous = getNode(index);
                     newNode.next = previous.next;
                     newNode.prev = previous;

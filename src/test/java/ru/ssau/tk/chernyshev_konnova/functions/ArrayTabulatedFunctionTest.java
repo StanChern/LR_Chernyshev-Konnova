@@ -166,6 +166,8 @@ public class ArrayTabulatedFunctionTest {
         assertEquals(testDefinedThroughArrays.getY(1), -1, DELTA);
         assertEquals(testDefinedThroughArrays.getY(2), 1, DELTA);
         assertEquals(testDefinedThroughArrays.getY(3), 2, DELTA);
+
+        assertEquals(testDefinedThroughArrays.getCount(), 4);
     }
 
     @Test
@@ -201,6 +203,7 @@ public class ArrayTabulatedFunctionTest {
             assertEquals(testArray.getX(i), i);
             assertEquals(testArray.getY(i), i * 10);
         }
+        assertEquals(testArray.getCount(), 7);
     }
 
     @Test

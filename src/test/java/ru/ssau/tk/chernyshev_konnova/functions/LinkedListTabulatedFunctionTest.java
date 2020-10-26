@@ -165,19 +165,29 @@ public class LinkedListTabulatedFunctionTest {
 
         testListArray.insert(3, 30);
         testListArray.insert(2, 20);
+        testListArray.insert(-5, -50);
+        testListArray.insert(-2, -20);
 
-        //our list: [(0, 0) (1, 10) (2, 20) (3, 30)]
-        assertEquals(testListArray.getX(1), 1, DELTA);
-        assertEquals(testListArray.getY(1), 10, DELTA);
+        //our list: [(-5, -50) (-2, -20) (0, 0) (1, 10) (2, 20) (3, 30)]
+        assertEquals(testListArray.getX(0), -5, DELTA);
+        assertEquals(testListArray.getY(0), -50, DELTA);
 
-        assertEquals(testListArray.getX(0), 0, DELTA);
-        assertEquals(testListArray.getY(0), 0, DELTA);
+        assertEquals(testListArray.getX(1), -2, DELTA);
+        assertEquals(testListArray.getY(1), -20, DELTA);
 
-        assertEquals(testListArray.getX(3), 3, DELTA);
-        assertEquals(testListArray.getY(3), 30, DELTA);
+        assertEquals(testListArray.getX(2), 0, DELTA);
+        assertEquals(testListArray.getY(2), 0, DELTA);
 
-        assertEquals(testListArray.getX(2), 2, DELTA);
-        assertEquals(testListArray.getY(2), 20, DELTA);
+        assertEquals(testListArray.getX(3), 1, DELTA);
+        assertEquals(testListArray.getY(3), 10, DELTA);
+
+        assertEquals(testListArray.getX(4), 2, DELTA);
+        assertEquals(testListArray.getY(4), 20, DELTA);
+
+        assertEquals(testListArray.getX(5), 3, DELTA);
+        assertEquals(testListArray.getY(5), 30, DELTA);
+
+        assertEquals(testListArray.getCount(), 6);
     }
 
     @Test
@@ -192,6 +202,8 @@ public class LinkedListTabulatedFunctionTest {
         assertEquals(testList.getX(1), 4, DELTA);
         assertEquals(testList.getY(0), 20, DELTA);
         assertEquals(testList.getY(1), 40, DELTA);
+
+        assertEquals(testList.getCount(), 2);
     }
 
     @Test

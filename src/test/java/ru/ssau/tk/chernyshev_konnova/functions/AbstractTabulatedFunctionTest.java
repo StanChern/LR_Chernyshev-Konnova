@@ -52,5 +52,8 @@ public class AbstractTabulatedFunctionTest {
         double[] y = {10, 20, 30};
         TabulatedFunction arrayFunction = new ArrayTabulatedFunction(x, y);
         assertEquals(arrayFunction.toString(), "ArrayTabulatedFunction size = 3\n[1.0; 10.0]\n[2.0; 20.0]\n[3.0; 30.0]");
+
+        TabulatedFunction listFunction = new LinkedListTabulatedFunction(x, y);
+        assertEquals(listFunction.toString(), "LinkedListTabulatedFunction size = 3\n[1.0; 10.0]\n[2.0; 20.0]\n[3.0; 30.0]");
     }
 }

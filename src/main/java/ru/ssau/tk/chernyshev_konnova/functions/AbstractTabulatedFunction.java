@@ -4,8 +4,6 @@ import ru.ssau.tk.chernyshev_konnova.exceptions.*;
 
 public abstract class AbstractTabulatedFunction implements TabulatedFunction {
 
-    protected int count;
-
     public abstract int getCount();
 
     protected abstract int floorIndexOfX(double x);
@@ -51,7 +49,7 @@ public abstract class AbstractTabulatedFunction implements TabulatedFunction {
 
     public String toString() {
         StringBuilder str = new StringBuilder();
-        str.append(getClass().getSimpleName()).append(" size = ").append(count).append("\n");
+        str.append(getClass().getSimpleName()).append(" size = ").append(this.getCount()).append("\n");
 
         for (Point point : this) {
             str.append("[")

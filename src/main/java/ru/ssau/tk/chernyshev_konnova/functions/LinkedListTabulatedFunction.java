@@ -2,14 +2,16 @@ package ru.ssau.tk.chernyshev_konnova.functions;
 
 import ru.ssau.tk.chernyshev_konnova.exceptions.InterpolationException;
 
+import java.io.Serializable;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Insertable, Removable {
-
+public class LinkedListTabulatedFunction extends AbstractTabulatedFunction implements Serializable, Insertable, Removable {
+    private static final long serialVersionUID = -6234921236991720398L;
     private Node head;
+    private int count;
 
-    protected static class Node {
+    protected static class Node implements Serializable {
         public double x;
         public double y;
         public Node next;

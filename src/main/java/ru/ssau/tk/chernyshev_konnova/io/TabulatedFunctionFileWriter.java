@@ -4,17 +4,15 @@ import ru.ssau.tk.chernyshev_konnova.functions.*;
 
 import java.io.*;
 
-public class TabulatedFunctionFileOutputStream {
+public class TabulatedFunctionFileWriter {
     public static void main(String[] args) {
-        File arrayFile = new File("output/array function.bin");
-        File listFile = new File("output/linked list function.bin");
         double[] x = {1, 2, 3};
         double[] y = {10, 20, 30};
         TabulatedFunction listFunction = new LinkedListTabulatedFunction(x, y);
         TabulatedFunction arrayFunction = new ArrayTabulatedFunction(x, y);
         try {
-            BufferedOutputStream outArray = new BufferedOutputStream(new FileOutputStream(arrayFile));
-            BufferedOutputStream outList = new BufferedOutputStream(new FileOutputStream(listFile));
+            BufferedWriter outArray = new BufferedWriter(new FileWriter("output/array function.txt"));
+            BufferedWriter outList = new BufferedWriter(new FileWriter("output/linked list function.txt"));
 
             FunctionsIO.writeTabulatedFunction(outArray, arrayFunction);
             FunctionsIO.writeTabulatedFunction(outList, listFunction);

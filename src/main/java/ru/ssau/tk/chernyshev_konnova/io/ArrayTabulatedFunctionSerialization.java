@@ -16,13 +16,12 @@ public class ArrayTabulatedFunctionSerialization {
         TabulatedFunction arrayFunction = new ArrayTabulatedFunction(x, y);
         TabulatedFunction arrayFunction1 = differentialOperator.derive(arrayFunction);
         TabulatedFunction arrayFunction2 = differentialOperator.derive(arrayFunction1);
-        try(BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileArray));
-            BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileArray)) ) {
-
+        try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(fileArray));
+             BufferedInputStream in = new BufferedInputStream(new FileInputStream(fileArray))) {
+            
             FunctionsIO.serialize(out, arrayFunction);
             FunctionsIO.serialize(out, arrayFunction1);
             FunctionsIO.serialize(out, arrayFunction2);
-            out.close();
 
             TabulatedFunction resultArray = FunctionsIO.deserialize(in);
             TabulatedFunction resultArray1 = FunctionsIO.deserialize(in);

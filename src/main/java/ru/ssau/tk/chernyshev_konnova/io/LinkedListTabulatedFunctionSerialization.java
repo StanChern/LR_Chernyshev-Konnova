@@ -18,10 +18,10 @@ public class LinkedListTabulatedFunctionSerialization {
         TabulatedFunction listFunction2 = differentialOperator.derive(listFunction1);
         try (BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(outList));
              BufferedInputStream in = new BufferedInputStream(new FileInputStream(outList))) {
+
             FunctionsIO.serialize(out, listFunction);
             FunctionsIO.serialize(out, listFunction1);
             FunctionsIO.serialize(out, listFunction2);
-            out.close();
 
             TabulatedFunction resultList = FunctionsIO.deserialize(in);
             TabulatedFunction resultList1 = FunctionsIO.deserialize(in);

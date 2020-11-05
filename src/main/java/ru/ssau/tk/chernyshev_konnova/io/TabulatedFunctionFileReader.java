@@ -1,7 +1,6 @@
 package ru.ssau.tk.chernyshev_konnova.io;
 
-import ru.ssau.tk.chernyshev_konnova.functions.LinkedListTabulatedFunction;
-import ru.ssau.tk.chernyshev_konnova.functions.TabulatedFunction;
+import ru.ssau.tk.chernyshev_konnova.functions.*;
 import ru.ssau.tk.chernyshev_konnova.functions.factory.*;
 
 import java.io.*;
@@ -10,12 +9,11 @@ import java.io.*;
 public class TabulatedFunctionFileReader {
     public static void main(String[] args) {
         File myFile = new File("input/function.txt");
-        try {
-            BufferedReader inArray = new BufferedReader(new FileReader(myFile));
+        try (BufferedReader inArray = new BufferedReader(new FileReader(myFile));
+             BufferedReader inList = new BufferedReader(new FileReader(myFile))) {
             TabulatedFunction arrayFunction = FunctionsIO.readTabulatedFunction(inArray, new ArrayTabulatedFunctionFactory());
             System.out.println(arrayFunction.toString());
 
-            BufferedReader inList = new BufferedReader(new FileReader(myFile));
             TabulatedFunction listFunction = FunctionsIO.readTabulatedFunction(inList, new LinkedListTabulatedFunctionFactory());
             System.out.println(listFunction.toString());
         } catch (IOException err) {

@@ -1,7 +1,6 @@
 package ru.ssau.tk.chernyshev_konnova.functions.factory;
 
-import ru.ssau.tk.chernyshev_konnova.functions.LinkedListTabulatedFunction;
-import ru.ssau.tk.chernyshev_konnova.functions.TabulatedFunction;
+import ru.ssau.tk.chernyshev_konnova.functions.*;
 
 public class LinkedListTabulatedFunctionFactory implements TabulatedFunctionFactory {
 

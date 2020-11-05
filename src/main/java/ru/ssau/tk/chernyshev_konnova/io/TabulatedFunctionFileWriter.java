@@ -10,10 +10,8 @@ public class TabulatedFunctionFileWriter {
         double[] y = {10, 20, 30};
         TabulatedFunction listFunction = new LinkedListTabulatedFunction(x, y);
         TabulatedFunction arrayFunction = new ArrayTabulatedFunction(x, y);
-        try {
-            BufferedWriter outArray = new BufferedWriter(new FileWriter("output/array function.txt"));
-            BufferedWriter outList = new BufferedWriter(new FileWriter("output/linked list function.txt"));
-
+        try (BufferedWriter outArray = new BufferedWriter(new FileWriter("output/array function.txt"));
+             BufferedWriter outList = new BufferedWriter(new FileWriter("output/linked list function.txt"))) {
             FunctionsIO.writeTabulatedFunction(outArray, arrayFunction);
             FunctionsIO.writeTabulatedFunction(outList, listFunction);
 

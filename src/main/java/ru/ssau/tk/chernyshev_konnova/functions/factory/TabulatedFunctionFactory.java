@@ -1,8 +1,6 @@
 package ru.ssau.tk.chernyshev_konnova.functions.factory;
 
-import ru.ssau.tk.chernyshev_konnova.functions.StrictTabulatedFunction;
-import ru.ssau.tk.chernyshev_konnova.functions.TabulatedFunction;
-import ru.ssau.tk.chernyshev_konnova.functions.UnmodifiableTabulatedFunction;
+import ru.ssau.tk.chernyshev_konnova.functions.*;
 
 public interface TabulatedFunctionFactory {
     TabulatedFunction create(double[] xValues, double[] yValues);

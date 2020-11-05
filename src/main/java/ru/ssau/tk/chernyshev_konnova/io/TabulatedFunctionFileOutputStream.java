@@ -12,10 +12,8 @@ public class TabulatedFunctionFileOutputStream {
         double[] y = {10, 20, 30};
         TabulatedFunction listFunction = new LinkedListTabulatedFunction(x, y);
         TabulatedFunction arrayFunction = new ArrayTabulatedFunction(x, y);
-        try {
-            BufferedOutputStream outArray = new BufferedOutputStream(new FileOutputStream(arrayFile));
-            BufferedOutputStream outList = new BufferedOutputStream(new FileOutputStream(listFile));
-
+        try (BufferedOutputStream outArray = new BufferedOutputStream(new FileOutputStream(arrayFile));
+             BufferedOutputStream outList = new BufferedOutputStream(new FileOutputStream(listFile))) {
             FunctionsIO.writeTabulatedFunction(outArray, arrayFunction);
             FunctionsIO.writeTabulatedFunction(outList, listFunction);
 

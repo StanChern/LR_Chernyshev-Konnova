@@ -1,8 +1,7 @@
 package ru.ssau.tk.chernyshev_konnova.io;
 
-import ru.ssau.tk.chernyshev_konnova.functions.Point;
-import ru.ssau.tk.chernyshev_konnova.functions.TabulatedFunction;
-import ru.ssau.tk.chernyshev_konnova.functions.factory.TabulatedFunctionFactory;
+import ru.ssau.tk.chernyshev_konnova.functions.*;
+import ru.ssau.tk.chernyshev_konnova.functions.factory.*;
 
 import java.io.*;
 import java.text.*;

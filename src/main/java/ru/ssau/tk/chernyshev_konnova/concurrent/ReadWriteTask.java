@@ -5,15 +5,16 @@ import ru.ssau.tk.chernyshev_konnova.functions.*;
 public class ReadWriteTask implements Runnable {
     private final TabulatedFunction function;
 
-    ReadWriteTask(TabulatedFunction function) {
+    public ReadWriteTask(TabulatedFunction function) {
         this.function = function;
     }
 
     @Override
     public void run() {
+        double x;
+        double y;
         for (int i = 0; i < function.getCount(); i++) {
-            double x = function.getX(i);
-            double y;
+            x = function.getX(i);
             synchronized (function) {
                 y = function.getY(i);
                 System.out.println(Thread.currentThread().getName() + ", before write: i = " + i + ", x = " + x + ", y = " + y);
@@ -22,5 +23,6 @@ public class ReadWriteTask implements Runnable {
             }
             System.out.println(Thread.currentThread().getName() + ", after write: i = " + i + ", x = " + x + ", y = " + y + "\n");
         }
+
     }
 }

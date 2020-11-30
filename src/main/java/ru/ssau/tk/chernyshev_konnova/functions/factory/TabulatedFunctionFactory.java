@@ -5,6 +5,7 @@ import ru.ssau.tk.chernyshev_konnova.functions.*;
 public interface TabulatedFunctionFactory {
     TabulatedFunction create(double[] xValues, double[] yValues);
 
+    TabulatedFunction create(MathFunction source, double xFrom, double xTo, int count);
     default TabulatedFunction createStrict(double[] xValues, double[] yValues) {
         return new StrictTabulatedFunction(create(xValues, yValues));
     }

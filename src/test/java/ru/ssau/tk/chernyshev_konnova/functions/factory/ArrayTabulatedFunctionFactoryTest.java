@@ -2,6 +2,7 @@ package ru.ssau.tk.chernyshev_konnova.functions.factory;
 
 import org.testng.annotations.Test;
 import ru.ssau.tk.chernyshev_konnova.functions.ArrayTabulatedFunction;
+import ru.ssau.tk.chernyshev_konnova.functions.ZeroFunction;
 
 import static org.testng.Assert.*;
 
@@ -13,5 +14,8 @@ public class ArrayTabulatedFunctionFactoryTest {
     public void testCreate() {
         var testArrayFunction = new ArrayTabulatedFunctionFactory().create(valuesX, valuesY);
         assertTrue(testArrayFunction instanceof ArrayTabulatedFunction);
+
+        var testArray = new ArrayTabulatedFunctionFactory().create(new ZeroFunction(),0,2,3);
+        assertTrue(testArray instanceof ArrayTabulatedFunction);
     }
 }

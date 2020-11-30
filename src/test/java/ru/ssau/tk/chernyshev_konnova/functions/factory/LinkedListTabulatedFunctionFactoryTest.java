@@ -1,7 +1,9 @@
 package ru.ssau.tk.chernyshev_konnova.functions.factory;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk.chernyshev_konnova.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.chernyshev_konnova.functions.LinkedListTabulatedFunction;
+import ru.ssau.tk.chernyshev_konnova.functions.ZeroFunction;
 
 import static org.testng.Assert.*;
 
@@ -13,5 +15,8 @@ public class LinkedListTabulatedFunctionFactoryTest {
     public void testCreate() {
         var testListFunction = new LinkedListTabulatedFunctionFactory().create(valuesX, valuesY);
         assertTrue(testListFunction instanceof LinkedListTabulatedFunction);
+
+        var testArray = new LinkedListTabulatedFunctionFactory().create(new ZeroFunction(),0,2,3);
+        assertTrue(testArray instanceof LinkedListTabulatedFunction);
     }
 }

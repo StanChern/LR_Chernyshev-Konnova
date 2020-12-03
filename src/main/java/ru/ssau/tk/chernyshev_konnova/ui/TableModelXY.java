@@ -9,8 +9,8 @@ public class TableModelXY extends AbstractTableModel {
     public static final int Y_COLUMN_NUMBER = 1;
     private static final long serialVersionUID = 6915690567071855880L;
 
-    private List<String> xValues;
-    private List<String> yValues;
+    private final List<String> xValues;
+    private final List<String> yValues;
 
     public TableModelXY(List<String> xValues, List<String> yValues) {
         this.xValues = xValues;

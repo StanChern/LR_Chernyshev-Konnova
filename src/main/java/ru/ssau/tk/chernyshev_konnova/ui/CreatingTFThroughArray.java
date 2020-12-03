@@ -1,33 +1,30 @@
 package ru.ssau.tk.chernyshev_konnova.ui;
 
-import com.sun.nio.sctp.MessageInfo;
 import ru.ssau.tk.chernyshev_konnova.functions.*;
 import ru.ssau.tk.chernyshev_konnova.functions.factory.*;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
 import java.awt.*;
-import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class CreatingTFThroughArray extends JFrame {
-
-    private java.util.List<String> xValues = new ArrayList<>();
-    private List<String> yValues = new ArrayList<>();
-
-    AbstractTableModel tableModel = new TableModelXY(xValues, yValues);
-    JTable tableXY = new JTable(tableModel);
-
-
-    JLabel labelCount = new JLabel("Количество точек n:");
-    JButton buttonCreateFunction = new JButton("Создать функцию");
-    JTextField textFieldCount = new JTextField("2");
-    JButton buttonCreateTable = new JButton("Создать");
+    //Count
+    private final JLabel labelCount = new JLabel("Количество точек n:");
+    private final JTextField textFieldCount = new JTextField("2");
+    private final JButton buttonCreateTable = new JButton("Создать");
+    //X & Y
+    private final java.util.List<String> xValues = new ArrayList<>();
+    private final List<String> yValues = new ArrayList<>();
+    private final AbstractTableModel tableModel = new TableModelXY(xValues, yValues);
+    private final JTable tableXY = new JTable(tableModel);
+    //TF
+    private final JButton buttonCreateFunction = new JButton("Создать функцию");
+    public TabulatedFunction function;
 
     public CreatingTFThroughArray() {
-        super("Окно 1. Создание функции через массив значений");
+        super("Создание функции через массив значений");
         getContentPane().setLayout(new FlowLayout());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 700);
@@ -36,7 +33,6 @@ public class CreatingTFThroughArray extends JFrame {
         getContentPane().add(textFieldCount);
         getContentPane().add(buttonCreateTable);
         getContentPane().add(buttonCreateFunction);
-
 
         compose();
         addButtonListeners();
@@ -47,28 +43,26 @@ public class CreatingTFThroughArray extends JFrame {
 
     private void addButtonListeners() {
         buttonCreateTable.addActionListener(
-                new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        int count = Integer.parseInt(textFieldCount.getText());
-                        for (int i = 0; i < count; i++) {
-                            xValues.add(i, "");
-                            yValues.add(i, "");
-
-                            tableModel.fireTableDataChanged();
-
-                        }
+                e -> {
+                    int count = Integer.parseInt(textFieldCount.getText());
+                    for (int i = 0; i < count; i++) {
+                        xValues.add(i, "");
+                        yValues.add(i, "");
+                        tableModel.fireTableDataChanged();
                     }
                 }
         );
 
-        buttonCreateFunction.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        buttonCreateFunction.addActionListener(e -> {
+            tableXY.clearSelection();
+            tableXY.getCellEditor().stopCellEditing();
 
-                JOptionPane.showMessageDialog(null,"Всё идет по плану..");
-                            //  TabulatedFunction function = new ArrayTabulatedFunctionFactory().create(arrayX, arrayY);
-            }
+            double[] arrayX = convert(xValues);
+            double[] arrayY = convert(yValues);
+            function = new ArrayTabulatedFunctionFactory().create(arrayX, arrayY);
+
+            System.out.println(function.toString());
+
         });
     }
 
@@ -97,8 +91,8 @@ public class CreatingTFThroughArray extends JFrame {
                 .addComponent(buttonCreateFunction));
     }
 
-    private Double[] convert(List<String> values) {
-        Double[] array = new Double[values.size()];
+    private double[] convert(List<String> values) {
+        double[] array = new double[values.size()];
         for (int i = 0; i < values.size(); i++) {
             String num = values.get(i);
             array[i] = Double.parseDouble(num);

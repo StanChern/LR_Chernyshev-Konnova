@@ -1,6 +1,7 @@
 package ru.ssau.tk.chernyshev_konnova.functions;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk.chernyshev_konnova.functions.simple.ConstantFunction;
 
 import static org.testng.Assert.*;
 import static ru.ssau.tk.chernyshev_konnova.functions.SomeConstants.*;

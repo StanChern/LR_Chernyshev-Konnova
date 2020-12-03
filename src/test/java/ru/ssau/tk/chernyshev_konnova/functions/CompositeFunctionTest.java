@@ -1,6 +1,10 @@
 package ru.ssau.tk.chernyshev_konnova.functions;
 
 import org.testng.annotations.Test;
+import ru.ssau.tk.chernyshev_konnova.functions.simple.IdentityFunction;
+import ru.ssau.tk.chernyshev_konnova.functions.simple.LnFunction;
+import ru.ssau.tk.chernyshev_konnova.functions.simple.SqrFunction;
+import ru.ssau.tk.chernyshev_konnova.functions.simple.UnitFunction;
 
 import static org.testng.Assert.*;
 import static ru.ssau.tk.chernyshev_konnova.functions.SomeConstants.*;

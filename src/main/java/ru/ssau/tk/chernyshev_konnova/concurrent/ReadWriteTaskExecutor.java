@@ -1,6 +1,7 @@
 package ru.ssau.tk.chernyshev_konnova.concurrent;
 
 import ru.ssau.tk.chernyshev_konnova.functions.*;
+import ru.ssau.tk.chernyshev_konnova.functions.simple.ZeroFunction;
 
 import java.util.*;
 

@@ -1,7 +1,11 @@
 package ru.ssau.tk.chernyshev_konnova.ui;
 
+import ru.ssau.tk.chernyshev_konnova.functions.*;
+import ru.ssau.tk.chernyshev_konnova.functions.simple.*;
+
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 public class CreatingTFThroughFunction extends JFrame {
     JLabel labelCount = new JLabel("Количество точек: ");
@@ -13,13 +17,30 @@ public class CreatingTFThroughFunction extends JFrame {
     JTextField textFieldTo = new JTextField(0);
     JTextField textFieldFrom = new JTextField(10);
     JButton buttonCreateFunction = new JButton("Создать функцию");
-    JComboBox comboBoxFunctions = new JComboBox();
+
+    Map<String, MathFunction> functionMap = new HashMap<>();
+    JComboBox <String> comboBoxFunctions = new JComboBox<>();
+
+    private void createMap(){
+
+        functionMap.put("Функция кубического корня", new CbrtFunction());
+        functionMap.put("Константная функция", new ConstantFunction(5));
+        functionMap.put("Тождественная функция", new IdentityFunction());
+        functionMap.put("Логарифмическая функция", new LnFunction());
+        functionMap.put("Квадратичная функция", new SqrFunction());
+        functionMap.put("Единичная функция", new UnitFunction());
+        functionMap.put("Нулевая функция", new ZeroFunction());
+
+       // functionMap.keySet().stream().sorted();
+    }
 
     CreatingTFThroughFunction() {
         super("Окно 2");
         getContentPane().setLayout(new FlowLayout());
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setBounds(100, 100, 800, 700);
+
+        createMap();
 
         getContentPane().add(labelCount);
         getContentPane().add(textFieldCount);
@@ -30,6 +51,7 @@ public class CreatingTFThroughFunction extends JFrame {
         getContentPane().add(labelBracket2);
         getContentPane().add(textFieldTo);
         getContentPane().add(labelBracket3);
+        //
         getContentPane().add(comboBoxFunctions);
 
         getContentPane().add(buttonCreateFunction);

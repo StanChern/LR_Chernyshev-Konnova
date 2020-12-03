@@ -1,22 +1,50 @@
 package ru.ssau.tk.chernyshev_konnova.ui;
 
 import javax.swing.table.AbstractTableModel;
-import java.util.List;
+import java.util.*;
 
 public class TableModelXY extends AbstractTableModel {
 
-    public static final int INDEX_COLUMN_NUMBER = 0;
-    public static final int VALUE_COLUMN_NUMBER = 1;
+    public static final int X_COLUMN_NUMBER = 0;
+    public static final int Y_COLUMN_NUMBER = 1;
     private static final long serialVersionUID = 6915690567071855880L;
-    private List<String> strings;
 
-    public TableModelXY(List<String> strings) {
-        this.strings = strings;
+    private List<String> xValues;
+    private List<String> yValues;
+
+    public TableModelXY(List<String> xValues, List<String> yValues) {
+        this.xValues = xValues;
+        this.yValues = yValues;
+    }
+
+    @Override
+    public Object getValueAt(int rowIndex, int columnIndex) {
+        switch (columnIndex) {
+            case X_COLUMN_NUMBER:
+                return xValues.get(rowIndex);
+
+            case Y_COLUMN_NUMBER:
+                return yValues.get(rowIndex);
+
+        }
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
+        switch (columnIndex) {
+            case X_COLUMN_NUMBER:
+                xValues.set(rowIndex, String.valueOf(aValue));
+                break;
+            case Y_COLUMN_NUMBER:
+                yValues.set(rowIndex, String.valueOf(aValue));
+                break;
+        }
     }
 
     @Override
     public int getRowCount() {
-        return strings.size();
+        return xValues.size();
     }
 
     @Override
@@ -25,42 +53,16 @@ public class TableModelXY extends AbstractTableModel {
     }
 
     @Override
-    public Object getValueAt(int rowIndex, int columnIndex) {
-        switch (columnIndex) {
-            case INDEX_COLUMN_NUMBER:
-                return rowIndex;
-            case VALUE_COLUMN_NUMBER:
-                return strings.get(rowIndex);
-        }
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void setValueAt(Object aValue, int rowIndex, int columnIndex) {
-        if (columnIndex != VALUE_COLUMN_NUMBER) {
-            return;
-        }
-        strings.set(rowIndex, String.valueOf(aValue));
-    }
-
-    @Override
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        switch (columnIndex) {
-            case INDEX_COLUMN_NUMBER:
-                return false;
-            case VALUE_COLUMN_NUMBER:
-                return true;
-        }
-
-        return false;
+        return true;
     }
 
     @Override
     public String getColumnName(int column) {
         switch (column) {
-            case INDEX_COLUMN_NUMBER:
+            case X_COLUMN_NUMBER:
                 return "X: ";
-            case VALUE_COLUMN_NUMBER:
+            case Y_COLUMN_NUMBER:
                 return "Y: ";
 
         }

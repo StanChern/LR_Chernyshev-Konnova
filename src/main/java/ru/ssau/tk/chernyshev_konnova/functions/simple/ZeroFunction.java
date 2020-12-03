@@ -1,4 +1,4 @@
-package ru.ssau.tk.chernyshev_konnova.functions;
+package ru.ssau.tk.chernyshev_konnova.functions.simple;
 
 public class ZeroFunction extends ConstantFunction {
     public ZeroFunction() {

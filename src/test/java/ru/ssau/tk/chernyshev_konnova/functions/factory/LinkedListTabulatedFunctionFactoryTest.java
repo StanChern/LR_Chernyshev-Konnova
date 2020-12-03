@@ -1,9 +1,8 @@
 package ru.ssau.tk.chernyshev_konnova.functions.factory;
 
 import org.testng.annotations.Test;
-import ru.ssau.tk.chernyshev_konnova.functions.ArrayTabulatedFunction;
 import ru.ssau.tk.chernyshev_konnova.functions.LinkedListTabulatedFunction;
-import ru.ssau.tk.chernyshev_konnova.functions.ZeroFunction;
+import ru.ssau.tk.chernyshev_konnova.functions.simple.ZeroFunction;
 
 import static org.testng.Assert.*;
 

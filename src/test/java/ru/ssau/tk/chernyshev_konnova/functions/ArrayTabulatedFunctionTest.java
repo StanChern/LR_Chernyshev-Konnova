@@ -2,6 +2,7 @@ package ru.ssau.tk.chernyshev_konnova.functions;
 
 import org.testng.annotations.Test;
 import ru.ssau.tk.chernyshev_konnova.exceptions.InterpolationException;
+import ru.ssau.tk.chernyshev_konnova.functions.simple.CbrtFunction;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;

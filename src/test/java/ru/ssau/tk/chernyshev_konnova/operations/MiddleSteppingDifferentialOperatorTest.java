@@ -1,7 +1,7 @@
 package ru.ssau.tk.chernyshev_konnova.operations;
 
 import org.testng.annotations.Test;
-import ru.ssau.tk.chernyshev_konnova.functions.SqrFunction;
+import ru.ssau.tk.chernyshev_konnova.functions.simple.SqrFunction;
 
 import static org.testng.Assert.*;
 import static ru.ssau.tk.chernyshev_konnova.functions.SomeConstants.*;

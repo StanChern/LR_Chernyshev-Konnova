@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 
-public class CreatingTFThroughFunction extends JFrame {
+public class CreatingTFThroughFunction extends JDialog {
     //Count
     private final JLabel labelCount = new JLabel("Количество точек: ");
     private final JTextField textFieldCount = new JTextField(2);
@@ -22,15 +22,14 @@ public class CreatingTFThroughFunction extends JFrame {
     //TF
     private final JButton buttonCreateFunction = new JButton("Создать функцию");
     public TabulatedFunction function;
-    double constant;
     //
     Map<String, MathFunction> functionMap = new HashMap<>();
     JComboBox<String> comboBoxFunctions = showComboBox();
 
     CreatingTFThroughFunction() {
-        super("Создание функции через простую функцию");
+        super();
         getContentPane().setLayout(new FlowLayout());
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setBounds(100, 100, 800, 700);
 
         getContentPane().add(labelCount);
@@ -60,14 +59,13 @@ public class CreatingTFThroughFunction extends JFrame {
                     String str = comboBoxFunctions.getItemAt(comboBoxFunctions.getSelectedIndex());
                     if (str.equals("Константная функция")) {
                         String result = JOptionPane.showInputDialog("Введите значение константы");
-                        constant = Double.parseDouble(result);
-
+                        double constant = Double.parseDouble(result);
                         function = new ArrayTabulatedFunctionFactory().create(new ConstantFunction(constant), from, to, count);
                     } else {
                         MathFunction mathFunction = functionMap.get(str);
                         function = new ArrayTabulatedFunctionFactory().create(mathFunction, from, to, count);
                     }
-                    System.out.println(function.toString());
+                    //  System.out.println(function.toString());
                 }
         );
     }
@@ -111,7 +109,7 @@ public class CreatingTFThroughFunction extends JFrame {
     private JComboBox<String> showComboBox() {
         functionMap.put("Единичная функция", new UnitFunction());
         functionMap.put("Квадратичная функция", new SqrFunction());
-        functionMap.put("Константная функция", new ConstantFunction(constant));
+        functionMap.put("Константная функция", new ConstantFunction(15));
         functionMap.put("Логарифмическая функция", new LnFunction());
         functionMap.put("Нулевая функция", new ZeroFunction());
         functionMap.put("Тождественная функция", new IdentityFunction());

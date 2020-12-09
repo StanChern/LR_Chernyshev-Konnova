@@ -9,7 +9,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreatingTFThroughArray extends JFrame {
+public class CreatingTFThroughArray extends JDialog {
     //Count
     private final JLabel labelCount = new JLabel("Количество точек n:");
     private final JTextField textFieldCount = new JTextField("2");
@@ -24,9 +24,9 @@ public class CreatingTFThroughArray extends JFrame {
     public TabulatedFunction function;
 
     public CreatingTFThroughArray() {
-        super("Создание функции через массив значений");
+        super();
         getContentPane().setLayout(new FlowLayout());
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setBounds(100, 100, 800, 700);
 
         getContentPane().add(labelCount);

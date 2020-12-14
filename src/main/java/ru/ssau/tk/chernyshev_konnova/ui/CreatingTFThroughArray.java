@@ -26,7 +26,8 @@ public class CreatingTFThroughArray extends JDialog {
     public CreatingTFThroughArray() {
         super();
         getContentPane().setLayout(new FlowLayout());
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        setModal(true);
         setBounds(100, 100, 800, 700);
 
         getContentPane().add(labelCount);
@@ -62,9 +63,10 @@ public class CreatingTFThroughArray extends JDialog {
             function = new ArrayTabulatedFunctionFactory().create(arrayX, arrayY);
 
             System.out.println(function.toString());
-
         });
     }
+
+
 
     private void compose() {
         GroupLayout layout = new GroupLayout(getContentPane());

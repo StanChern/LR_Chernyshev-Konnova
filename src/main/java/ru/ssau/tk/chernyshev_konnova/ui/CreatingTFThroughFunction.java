@@ -29,7 +29,8 @@ public class CreatingTFThroughFunction extends JDialog {
     CreatingTFThroughFunction() {
         super();
         getContentPane().setLayout(new FlowLayout());
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        setModal(true);
         setBounds(100, 100, 800, 700);
 
         getContentPane().add(labelCount);

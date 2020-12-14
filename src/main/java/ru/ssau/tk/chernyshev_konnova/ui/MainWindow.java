@@ -2,13 +2,13 @@ package ru.ssau.tk.chernyshev_konnova.ui;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class MainWindow extends JFrame {
     private final JButton buttonCreateArray = new JButton("Массив");
     private final JButton buttonCreateFunction = new JButton("Функция");
     private final JButton buttonSettings = new JButton("Настройки");
     private final JButton buttonOperations = new JButton("Поэлементные операции");
+    private final JButton buttonDifferentiation = new JButton("Дифференцирование");
 
     public MainWindow() {
         super("Главное окно");
@@ -20,42 +20,36 @@ public class MainWindow extends JFrame {
         getContentPane().add(buttonCreateFunction);
         getContentPane().add(buttonSettings);
         getContentPane().add(buttonOperations);
+        getContentPane().add(buttonDifferentiation);
 
         compose();
         addButtonListeners();
+
+
 
         setVisible(true);
     }
 
     private void addButtonListeners() {
         buttonCreateFunction.addActionListener(e -> {
-            setVisible(false);
-            JDialog createFunction = new CreatingTFThroughFunction();
-
-            createFunction.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosing(WindowEvent e) {
-                    setVisible(true);
-                }
-            });
+             new CreatingTFThroughFunction();
         });
 
         buttonCreateArray.addActionListener(e -> {
-            setVisible(false);
-            JDialog createArray = new CreatingTFThroughArray();
-
-            createArray.addWindowListener(new WindowAdapter() {
-                @Override
-                public void windowClosing(WindowEvent e) {
-                    setVisible(true);
-                }
-            });
+             new CreatingTFThroughArray();
         });
 
         buttonSettings.addActionListener(e -> {
+            //
         });
 
         buttonOperations.addActionListener(e -> {
+            new Operations();
+        });
+
+        buttonDifferentiation.addActionListener(e -> {
+             new Differentiation();
+
         });
     }
 
@@ -69,13 +63,15 @@ public class MainWindow extends JFrame {
                 .addComponent(buttonCreateArray)
                 .addComponent(buttonCreateFunction)
                 .addComponent(buttonOperations)
-                .addComponent(buttonSettings));
+                .addComponent(buttonSettings)
+                .addComponent(buttonDifferentiation));
 
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addComponent(buttonCreateArray)
                 .addComponent(buttonCreateFunction)
                 .addComponent(buttonOperations)
-                .addComponent(buttonSettings));
+                .addComponent(buttonSettings)
+                .addComponent(buttonDifferentiation));
     }
 
     public static void main(String[] args) {

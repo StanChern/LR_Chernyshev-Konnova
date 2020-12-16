@@ -5,6 +5,7 @@ import ru.ssau.tk.chernyshev_konnova.functions.*;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Optional;
 
 import static org.testng.Assert.*;
 import static ru.ssau.tk.chernyshev_konnova.functions.SomeConstants.DELTA;
@@ -163,5 +164,12 @@ public class SynchronizedTabulatedFunctionTest {
         assertEquals(synchronizedTabulatedFunctionArray.apply(0), 0, SomeConstants.DELTA);
         assertEquals(synchronizedTabulatedFunctionList.apply(7), 70, SomeConstants.DELTA);
         assertEquals(synchronizedTabulatedFunctionArray.apply(6), 60, SomeConstants.DELTA);
+    }
+
+    @Test
+    public void testDoSynchronously() {
+        SynchronizedTabulatedFunction synchronizedTabulatedFunction = getSynchronizedLinkedListTabulatedFunction();
+        assertEquals((int) synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::getCount), 5);
+        assertEquals(java.util.Optional.ofNullable(synchronizedTabulatedFunction.doSynchronously(SynchronizedTabulatedFunction::leftBound)), Optional.of(1.0));
     }
 }

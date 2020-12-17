@@ -47,4 +47,37 @@ public class TabulatedDifferentialOperatorTest {
         assertEquals(testArray.getY(4), 110);
         assertEquals(testArray.getY(5), 110);
     }
+
+    @Test
+    public void testDeriveSynchronously() {
+        TabulatedFunction linkedListTabulatedFunction = new LinkedListTabulatedFunction(new double[]{1, 2, 3, 4}, new double[]{10, 20, 30, 40});
+        TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator(new LinkedListTabulatedFunctionFactory());
+        TabulatedFunction diffFunctionList = differentialOperator.deriveSynchronously(linkedListTabulatedFunction);
+
+        TabulatedFunction arrayTabulatedFunction = new ArrayTabulatedFunction(new double[]{1, 2, 3, 4}, new double[]{1, 4, 9, 16});
+        TabulatedDifferentialOperator differentialOperator1 = new TabulatedDifferentialOperator(new ArrayTabulatedFunctionFactory());
+        TabulatedFunction diffFunctionArray = differentialOperator1.deriveSynchronously(arrayTabulatedFunction);
+
+        assertTrue(diffFunctionList instanceof LinkedListTabulatedFunction);
+        assertEquals(diffFunctionList.getX(0), 1);
+        assertEquals(diffFunctionList.getX(1), 2);
+        assertEquals(diffFunctionList.getX(2), 3);
+        assertEquals(diffFunctionList.getX(3), 4);
+
+        assertEquals(diffFunctionList.getY(0), 10);
+        assertEquals(diffFunctionList.getY(1), 10);
+        assertEquals(diffFunctionList.getY(2), 10);
+        assertEquals(diffFunctionList.getY(3), 10);
+
+        assertTrue(diffFunctionArray instanceof ArrayTabulatedFunction);
+        assertEquals(diffFunctionArray.getX(0), 1);
+        assertEquals(diffFunctionArray.getX(1), 2);
+        assertEquals(diffFunctionArray.getX(2), 3);
+        assertEquals(diffFunctionArray.getX(3), 4);
+
+        assertEquals(diffFunctionArray.getY(0), 3);
+        assertEquals(diffFunctionArray.getY(1), 5);
+        assertEquals(diffFunctionArray.getY(2), 7);
+        assertEquals(diffFunctionArray.getY(3), 7);
+    }
 }

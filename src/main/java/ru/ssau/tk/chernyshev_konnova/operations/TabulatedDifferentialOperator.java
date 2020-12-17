@@ -3,6 +3,7 @@ package ru.ssau.tk.chernyshev_konnova.operations;
 import ru.ssau.tk.chernyshev_konnova.functions.Point;
 import ru.ssau.tk.chernyshev_konnova.functions.factory.*;
 import ru.ssau.tk.chernyshev_konnova.functions.TabulatedFunction;
+import ru.ssau.tk.chernyshev_konnova.concurrent.SynchronizedTabulatedFunction;
 
 public class TabulatedDifferentialOperator implements DifferentialOperator<TabulatedFunction> {
 
@@ -41,5 +42,15 @@ public class TabulatedDifferentialOperator implements DifferentialOperator<Tabul
         yValues[length] = yValues[length - 1];
 
         return factory.create(xValues, yValues);
+    }
+
+    public TabulatedFunction deriveSynchronously(TabulatedFunction function) {
+        Object obj = new Object();
+
+        if (function instanceof SynchronizedTabulatedFunction) {
+            return ((SynchronizedTabulatedFunction) function).doSynchronously(this::derive);
+        }
+        SynchronizedTabulatedFunction syncFunc = new SynchronizedTabulatedFunction(function, obj);
+        return syncFunc.doSynchronously(this::derive);
     }
 }

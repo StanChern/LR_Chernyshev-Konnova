@@ -5,15 +5,9 @@ import ru.ssau.tk.chernyshev_konnova.functions.TabulatedFunction;
 
 public class MultiplyingTask implements Runnable {
     private final TabulatedFunction function;
-    Runnable postRunAction;
 
     public MultiplyingTask(TabulatedFunction func) {
         this.function = func;
-    }
-
-    public MultiplyingTask(TabulatedFunction func, Runnable postRunAction) {
-        this.function = func;
-        this.postRunAction = postRunAction;
     }
 
     @Override

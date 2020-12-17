@@ -3,16 +3,10 @@ package ru.ssau.tk.chernyshev_konnova.concurrent;
 import ru.ssau.tk.chernyshev_konnova.functions.TabulatedFunction;
 
 public class AddingTask implements Runnable {
-    final TabulatedFunction function;
-    Runnable postRunAction;
+    private final TabulatedFunction function;
 
     public AddingTask(TabulatedFunction func) {
         this.function = func;
-    }
-
-    public AddingTask(TabulatedFunction func, Runnable postRunAction) {
-        this.function = func;
-        this.postRunAction = postRunAction;
     }
 
     @Override
@@ -29,6 +23,5 @@ public class AddingTask implements Runnable {
             }
             System.out.printf("%s, i = %d, x = %f, new y = %f \n", Thread.currentThread().getName(), i, x, y);
         }
-        postRunAction.run();
     }
 }

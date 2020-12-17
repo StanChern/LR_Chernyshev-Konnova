@@ -5,7 +5,6 @@ import ru.ssau.tk.chernyshev_konnova.functions.simple.ConstantFunction;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CountDownLatch;
 
 public class AddingMultiplyingTaskExecutor {
     public static void main(String[] args) throws InterruptedException {

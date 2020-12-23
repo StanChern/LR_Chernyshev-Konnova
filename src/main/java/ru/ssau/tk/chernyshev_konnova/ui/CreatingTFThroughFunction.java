@@ -59,8 +59,8 @@ public class CreatingTFThroughFunction extends JDialog {
         buttonCreateFunction.addActionListener(
                 e -> {
                     int count = Integer.parseInt(textFieldCount.getText());
-                    double from = Integer.parseInt(textFieldFrom.getText());
-                    double to = Integer.parseInt(textFieldTo.getText());
+                    double from = Double.parseDouble(textFieldFrom.getText());
+                    double to = Double.parseDouble(textFieldTo.getText());
                     String str = comboBoxFunctions.getItemAt(comboBoxFunctions.getSelectedIndex());
                     if (str.equals("Константная функция")) {
                         String result = JOptionPane.showInputDialog("Введите значение константы");

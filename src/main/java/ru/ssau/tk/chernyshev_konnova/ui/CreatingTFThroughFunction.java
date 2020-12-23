@@ -7,6 +7,7 @@ import ru.ssau.tk.chernyshev_konnova.functions.simple.*;
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
+import java.util.function.Consumer;
 
 public class CreatingTFThroughFunction extends JDialog {
     //Count
@@ -26,10 +27,10 @@ public class CreatingTFThroughFunction extends JDialog {
     Map<String, MathFunction> functionMap = new HashMap<>();
     JComboBox<String> comboBoxFunctions = showComboBox();
 
-    CreatingTFThroughFunction() {
+    public CreatingTFThroughFunction(Consumer<? super TabulatedFunction> callback) {
         super();
         getContentPane().setLayout(new FlowLayout());
-        setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setModal(true);
         setBounds(100, 100, 800, 700);
 
@@ -49,6 +50,9 @@ public class CreatingTFThroughFunction extends JDialog {
         compose();
         addButtonListeners();
         setVisible(true);
+
+        callback.accept(function);
+        dispose();
     }
 
     private void addButtonListeners() {
@@ -66,7 +70,8 @@ public class CreatingTFThroughFunction extends JDialog {
                         MathFunction mathFunction = functionMap.get(str);
                         function = new ArrayTabulatedFunctionFactory().create(mathFunction, from, to, count);
                     }
-                    //  System.out.println(function.toString());
+                    dispose();
+                    System.out.println(function.toString());
                 }
         );
     }
@@ -127,9 +132,5 @@ public class CreatingTFThroughFunction extends JDialog {
         functions.addElement("Функция кубического корня");
 
         return new JComboBox<>(functions);
-    }
-
-    public static void main(String[] args) {
-        new CreatingTFThroughFunction();
     }
 }

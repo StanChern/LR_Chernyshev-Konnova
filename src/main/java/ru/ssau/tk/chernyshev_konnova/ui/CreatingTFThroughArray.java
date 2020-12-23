@@ -8,6 +8,7 @@ import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class CreatingTFThroughArray extends JDialog {
     //Count
@@ -23,7 +24,7 @@ public class CreatingTFThroughArray extends JDialog {
     private final JButton buttonCreateFunction = new JButton("Создать функцию");
     public TabulatedFunction function;
 
-    public CreatingTFThroughArray() {
+    public CreatingTFThroughArray(Consumer<? super TabulatedFunction> callback) {
         super();
         getContentPane().setLayout(new FlowLayout());
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -40,6 +41,9 @@ public class CreatingTFThroughArray extends JDialog {
 
         tableXY.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         setVisible(true);
+
+        callback.accept(function);
+        dispose();
     }
 
     private void addButtonListeners() {
@@ -60,12 +64,15 @@ public class CreatingTFThroughArray extends JDialog {
 
             double[] arrayX = convert(xValues);
             double[] arrayY = convert(yValues);
+
             function = new ArrayTabulatedFunctionFactory().create(arrayX, arrayY);
 
+            dispose();
             System.out.println(function.toString());
+
+
         });
     }
-
 
 
     private void compose() {
@@ -100,9 +107,5 @@ public class CreatingTFThroughArray extends JDialog {
             array[i] = Double.parseDouble(num);
         }
         return array;
-    }
-
-    public static void main(String[] args) {
-        new CreatingTFThroughArray();
     }
 }

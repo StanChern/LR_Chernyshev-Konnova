@@ -1,6 +1,8 @@
 package ru.ssau.tk.chernyshev_konnova.ui;
 
 import ru.ssau.tk.chernyshev_konnova.functions.TabulatedFunction;
+import ru.ssau.tk.chernyshev_konnova.functions.factory.*;
+import ru.ssau.tk.chernyshev_konnova.operations.TabulatedDifferentialOperator;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -10,21 +12,30 @@ import java.util.List;
 
 public class Differentiation extends JDialog {
     //X & Yla
-    private final java.util.List<String> xValues = new ArrayList<>();
-    private final List<String> yValues = new ArrayList<>();
-    private final AbstractTableModel tableModel = new TableModelXY(xValues, yValues);
-    private final JTable tableResult = new JTable(tableModel);
-    private final JTable tableInitial = new JTable(tableModel);
+    private final java.util.List<String> xValuesResult = new ArrayList<>();
+    private final List<String> yValuesResult = new ArrayList<>();
+    private final AbstractTableModel tableModelResult = new TableModelXY(xValuesResult, yValuesResult);
+    private final JTable tableResult = new JTable(tableModelResult);
+
+    private final java.util.List<String> xValuesInitial = new ArrayList<>();
+    private final List<String> yValuesInitial = new ArrayList<>();
+    private final AbstractTableModel tableModelInitial = new TableModelXY(xValuesInitial, yValuesInitial);
+    private final JTable tableInitial = new JTable(tableModelInitial);
+
     private final JButton buttonResult = new JButton("Сохранить результат");
 
     private final JButton buttonCreate = new JButton("Создать..");
     private final JButton buttonSave = new JButton("Сохранить..");
     private final JButton buttonDownload = new JButton("Загрузить..");
 
-    TabulatedFunction functionResult;
-    TabulatedFunction functionInitial;
+    private TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
 
-    Differentiation() {
+    private TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator(factory);
+
+    protected TabulatedFunction functionResult;
+    protected TabulatedFunction functionInitial;
+
+   public Differentiation() {
         super();
         getContentPane().setLayout(new FlowLayout());
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -35,9 +46,9 @@ public class Differentiation extends JDialog {
         compose();
         addButtonListeners();
 
-        tableResult.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tableInitial.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        tableInitial.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tableResult.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         setVisible(true);
     }
 
@@ -47,18 +58,69 @@ public class Differentiation extends JDialog {
             int resultDialog = JOptionPane.showOptionDialog(new JFrame(), "Как вы хотите создать функцию?",
                     "Создать..", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
                     null, buttonsName, buttonsName[2]);
-
             switch (resultDialog) {
                 case 0:
-                    new CreatingTFThroughArray();
+                    new CreatingTFThroughArray(function -> {
+                        xValuesInitial.clear();
+                        yValuesInitial.clear();
+
+                        xValuesResult.clear();
+                        yValuesResult.clear();
+
+                        functionInitial = function;
+                        for (int i = 0; i < functionInitial.getCount(); i++) {
+                            xValuesInitial.add(i, String.valueOf(functionInitial.getX(i)));
+
+                            yValuesInitial.add(i, String.valueOf(functionInitial.getY(i)));
+
+                            tableModelInitial.fireTableDataChanged();
+                        }
+
+                        functionResult = differentialOperator.derive(function);
+                        for (int i = 0; i < functionResult.getCount(); i++) {
+                            xValuesResult.add(i, String.valueOf(functionResult.getX(i)));
+                            yValuesResult.add(i, String.valueOf(functionResult.getY(i)));
+
+                            tableModelResult.fireTableDataChanged();
+                        }
+                    });
                     break;
                 case 1:
-                    new CreatingTFThroughFunction();
+                    new CreatingTFThroughFunction(function -> {
+                        xValuesInitial.clear();
+                        yValuesInitial.clear();
+
+                        xValuesResult.clear();
+                        yValuesResult.clear();
+
+                        functionInitial = function;
+                        for (int i = 0; i < functionInitial.getCount(); i++) {
+                            xValuesInitial.add(i, String.valueOf(functionInitial.getX(i)));
+
+                            yValuesInitial.add(i, String.valueOf(functionInitial.getY(i)));
+
+                            tableModelInitial.fireTableDataChanged();
+                        }
+
+                        functionResult = differentialOperator.derive(function);
+                        for (int i = 0; i < functionResult.getCount(); i++) {
+                            xValuesResult.add(i, String.valueOf(functionResult.getX(i)));
+                            yValuesResult.add(i, String.valueOf(functionResult.getY(i)));
+
+                            tableModelResult.fireTableDataChanged();
+                        }
+                    });
                     break;
             }
-
         });
 
+        buttonSave.addActionListener(e -> {
+            //save
+        });
+
+        buttonDownload.addActionListener(e -> {
+            //Download
+        });
     }
 
     private void compose() {

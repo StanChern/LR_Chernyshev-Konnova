@@ -26,17 +26,27 @@ public class MainWindow extends JFrame {
         addButtonListeners();
 
 
-
         setVisible(true);
     }
 
     private void addButtonListeners() {
         buttonCreateFunction.addActionListener(e -> {
-             new CreatingTFThroughFunction();
+            new CreatingTFThroughFunction(function -> {
+                String[] buttonsNames = {"Да", "Нет"};
+                int resultSave = JOptionPane.showOptionDialog(new Frame(), "Вы хотите сохранить функцию?",
+                        "Сохранить..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                        null, buttonsNames, buttonsNames[1]);
+            });
         });
 
         buttonCreateArray.addActionListener(e -> {
-             new CreatingTFThroughArray();
+            new CreatingTFThroughArray(function -> {
+                String[] buttonsNames = {"Да", "Нет"};
+                int resultSave = JOptionPane.showOptionDialog(new Frame(), "Вы хотите сохранить функцию?",
+                        "Сохранить..", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE,
+                        null, buttonsNames, buttonsNames[1]);
+
+            });
         });
 
         buttonSettings.addActionListener(e -> {
@@ -44,11 +54,11 @@ public class MainWindow extends JFrame {
         });
 
         buttonOperations.addActionListener(e -> {
-            new Operations();
+            // new Operations();
         });
 
         buttonDifferentiation.addActionListener(e -> {
-             new Differentiation();
+            new Differentiation();
 
         });
     }

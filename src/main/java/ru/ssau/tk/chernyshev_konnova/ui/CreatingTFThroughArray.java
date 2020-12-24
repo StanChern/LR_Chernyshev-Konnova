@@ -1,7 +1,6 @@
 package ru.ssau.tk.chernyshev_konnova.ui;
 
 import ru.ssau.tk.chernyshev_konnova.functions.*;
-import ru.ssau.tk.chernyshev_konnova.functions.factory.*;
 
 import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
@@ -23,6 +22,7 @@ public class CreatingTFThroughArray extends JDialog {
     //TF
     private final JButton buttonCreateFunction = new JButton("Создать функцию");
     public TabulatedFunction function;
+    protected static JCheckBox checkBoxSave = new JCheckBox("Сохранить функцию");
 
     public CreatingTFThroughArray(Consumer<? super TabulatedFunction> callback) {
         super();
@@ -35,6 +35,7 @@ public class CreatingTFThroughArray extends JDialog {
         getContentPane().add(textFieldCount);
         getContentPane().add(buttonCreateTable);
         getContentPane().add(buttonCreateFunction);
+        getContentPane().add(checkBoxSave);
 
         compose();
         addButtonListeners();
@@ -65,12 +66,10 @@ public class CreatingTFThroughArray extends JDialog {
             double[] arrayX = convert(xValues);
             double[] arrayY = convert(yValues);
 
-            function = new ArrayTabulatedFunctionFactory().create(arrayX, arrayY);
+            function = MainWindow.functionFactory.create(arrayX, arrayY);
 
             dispose();
             System.out.println(function.toString());
-
-
         });
     }
 
@@ -87,8 +86,8 @@ public class CreatingTFThroughArray extends JDialog {
                         .addComponent(textFieldCount)
                         .addComponent(buttonCreateTable))
                 .addComponent(scrollPane)
+                .addComponent(checkBoxSave)
                 .addComponent(buttonCreateFunction)
-
         );
 
         layout.setVerticalGroup(layout.createSequentialGroup()
@@ -97,7 +96,11 @@ public class CreatingTFThroughArray extends JDialog {
                         .addComponent(textFieldCount)
                         .addComponent(buttonCreateTable))
                 .addComponent(scrollPane)
+                .addComponent(checkBoxSave)
                 .addComponent(buttonCreateFunction));
+
+        getContentPane().setBackground(Settings.color);
+        checkBoxSave.setBackground(Settings.color);
     }
 
     private double[] convert(List<String> values) {

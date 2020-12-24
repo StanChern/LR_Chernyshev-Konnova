@@ -1,7 +1,6 @@
 package ru.ssau.tk.chernyshev_konnova.ui;
 
 import ru.ssau.tk.chernyshev_konnova.functions.*;
-import ru.ssau.tk.chernyshev_konnova.functions.factory.*;
 import ru.ssau.tk.chernyshev_konnova.functions.simple.*;
 
 import javax.swing.*;
@@ -23,6 +22,7 @@ public class CreatingTFThroughFunction extends JDialog {
     //TF
     private final JButton buttonCreateFunction = new JButton("Создать функцию");
     public TabulatedFunction function;
+    protected static JCheckBox checkBoxSave = new JCheckBox("Сохранить функцию");
     //
     Map<String, MathFunction> functionMap = new HashMap<>();
     JComboBox<String> comboBoxFunctions = showComboBox();
@@ -65,10 +65,11 @@ public class CreatingTFThroughFunction extends JDialog {
                     if (str.equals("Константная функция")) {
                         String result = JOptionPane.showInputDialog("Введите значение константы");
                         double constant = Double.parseDouble(result);
-                        function = new ArrayTabulatedFunctionFactory().create(new ConstantFunction(constant), from, to, count);
+                        function = MainWindow.functionFactory.create(new ConstantFunction(constant), from, to, count);
                     } else {
                         MathFunction mathFunction = functionMap.get(str);
-                        function = new ArrayTabulatedFunctionFactory().create(mathFunction, from, to, count);
+
+                        function = MainWindow.functionFactory.create(mathFunction, from, to, count);
                     }
                     dispose();
                     System.out.println(function.toString());
@@ -94,6 +95,7 @@ public class CreatingTFThroughFunction extends JDialog {
                         .addComponent(textFieldTo)
                         .addComponent(labelBracket3))
                 .addComponent(comboBoxFunctions)
+                .addComponent(checkBoxSave)
                 .addComponent(buttonCreateFunction)
         );
 
@@ -109,25 +111,26 @@ public class CreatingTFThroughFunction extends JDialog {
                         .addComponent(textFieldTo)
                         .addComponent(labelBracket3))
                 .addComponent(comboBoxFunctions)
+                .addComponent(checkBoxSave)
                 .addComponent(buttonCreateFunction));
+
+        getContentPane().setBackground(Settings.color);
+        checkBoxSave.setBackground(Settings.color);
+        comboBoxFunctions.setBackground(Settings.color.brighter());
     }
 
     private JComboBox<String> showComboBox() {
-        functionMap.put("Единичная функция", new UnitFunction());
         functionMap.put("Квадратичная функция", new SqrFunction());
         functionMap.put("Константная функция", new ConstantFunction(15));
         functionMap.put("Логарифмическая функция", new LnFunction());
-        functionMap.put("Нулевая функция", new ZeroFunction());
         functionMap.put("Тождественная функция", new IdentityFunction());
         functionMap.put("Функция кубического корня", new CbrtFunction());
 
         DefaultComboBoxModel<String> functions = new DefaultComboBoxModel<>();
 
-        functions.addElement("Единичная функция");
         functions.addElement("Квадратичная функция");
         functions.addElement("Константная функция");
         functions.addElement("Логарифмическая функция");
-        functions.addElement("Нулевая функция");
         functions.addElement("Тождественная функция");
         functions.addElement("Функция кубического корня");
 

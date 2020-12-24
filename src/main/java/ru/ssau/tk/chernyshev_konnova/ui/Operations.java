@@ -4,6 +4,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Operations extends JDialog {
+    //MainWindow.functionFactory
+
     Operations() {
         super();
         getContentPane().setLayout(new FlowLayout());

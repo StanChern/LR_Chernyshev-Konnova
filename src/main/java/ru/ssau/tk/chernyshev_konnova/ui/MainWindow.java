@@ -4,13 +4,11 @@ import ru.ssau.tk.chernyshev_konnova.functions.factory.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
 public class MainWindow extends JFrame {
     private final JButton buttonCreateArray = new JButton("Массив");
     private final JButton buttonCreateFunction = new JButton("Функция");
     private final JButton buttonSettings = new JButton("Настройки");
-    private final JButton buttonOperations = new JButton("Поэлементные операции");
     private final JButton buttonDifferentiation = new JButton("Дифференцирование");
 
     protected static TabulatedFunctionFactory functionFactory = new ArrayTabulatedFunctionFactory();
@@ -24,7 +22,6 @@ public class MainWindow extends JFrame {
         getContentPane().add(buttonCreateArray);
         getContentPane().add(buttonCreateFunction);
         getContentPane().add(buttonSettings);
-        getContentPane().add(buttonOperations);
         getContentPane().add(buttonDifferentiation);
 
         compose();
@@ -57,10 +54,6 @@ public class MainWindow extends JFrame {
             );
         });
 
-        buttonOperations.addActionListener(e -> {
-            // new Operations();
-        });
-
         buttonDifferentiation.addActionListener(e -> {
             new Differentiation();
         });
@@ -72,17 +65,17 @@ public class MainWindow extends JFrame {
         layout.setAutoCreateGaps(true);
         layout.setAutoCreateContainerGaps(true);
 
-        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.CENTER)
+        layout.setHorizontalGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
                 .addComponent(buttonCreateArray)
                 .addComponent(buttonCreateFunction)
-                .addComponent(buttonOperations)
+
                 .addComponent(buttonSettings)
                 .addComponent(buttonDifferentiation));
 
         layout.setVerticalGroup(layout.createSequentialGroup()
                 .addComponent(buttonCreateArray)
                 .addComponent(buttonCreateFunction)
-                .addComponent(buttonOperations)
+
                 .addComponent(buttonSettings)
                 .addComponent(buttonDifferentiation));
 

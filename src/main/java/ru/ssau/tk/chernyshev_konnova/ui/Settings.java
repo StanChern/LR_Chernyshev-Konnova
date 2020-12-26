@@ -19,7 +19,7 @@ public class Settings extends JDialog {
     private final JButton buttonColor = new JButton("Изменить цвет фона");
     protected static Color color = new Color(0, 204, 204);
 
-    public Settings(Consumer<? super TabulatedFunctionFactory> callback) {
+    protected Settings(Consumer<? super TabulatedFunctionFactory> callback) {
         super();
         getContentPane().setLayout(new FlowLayout());
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

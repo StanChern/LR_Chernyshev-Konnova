@@ -12,7 +12,7 @@ public class TableModelXY extends AbstractTableModel {
     private final List<String> xValues;
     private final List<String> yValues;
 
-    public TableModelXY(List<String> xValues, List<String> yValues) {
+    protected TableModelXY(List<String> xValues, List<String> yValues) {
         this.xValues = xValues;
         this.yValues = yValues;
     }

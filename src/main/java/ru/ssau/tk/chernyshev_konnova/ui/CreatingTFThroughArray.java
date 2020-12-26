@@ -24,7 +24,7 @@ public class CreatingTFThroughArray extends JDialog {
     public TabulatedFunction function;
     protected static JCheckBox checkBoxSave = new JCheckBox("Сохранить функцию");
 
-    public CreatingTFThroughArray(Consumer<? super TabulatedFunction> callback) {
+    protected CreatingTFThroughArray(Consumer<? super TabulatedFunction> callback) {
         super();
         getContentPane().setLayout(new FlowLayout());
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
@@ -68,8 +68,9 @@ public class CreatingTFThroughArray extends JDialog {
 
             function = MainWindow.functionFactory.create(arrayX, arrayY);
 
+            tableXY.setCellSelectionEnabled(true);
             dispose();
-            System.out.println(function.toString());
+
         });
     }
 
@@ -110,5 +111,6 @@ public class CreatingTFThroughArray extends JDialog {
             array[i] = Double.parseDouble(num);
         }
         return array;
+
     }
 }

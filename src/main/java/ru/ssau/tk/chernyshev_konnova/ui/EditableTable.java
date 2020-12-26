@@ -8,11 +8,11 @@ public class EditableTable extends AbstractTableModel {
     private static final int Y_COLUMN_NUMBER = 1;
     private static final long serialVersionUID = -6711044356115370439L;
 
-    private final List<String> xValues;
-    private final List<String> yValues;
+    private List<String> xValues;
+    private List<String> yValues;
     private final boolean editable;
 
-    public EditableTable(List<String> xValues, List<String> yValues, boolean editable) {
+    protected EditableTable(List<String> xValues, List<String> yValues, boolean editable) {
         this.xValues = xValues;
         this.yValues = yValues;
         this.editable = editable;

@@ -27,7 +27,7 @@ public class CreatingTFThroughFunction extends JDialog {
     Map<String, MathFunction> functionMap = new HashMap<>();
     JComboBox<String> comboBoxFunctions = showComboBox();
 
-    public CreatingTFThroughFunction(Consumer<? super TabulatedFunction> callback) {
+    protected CreatingTFThroughFunction(Consumer<? super TabulatedFunction> callback) {
         super();
         getContentPane().setLayout(new FlowLayout());
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

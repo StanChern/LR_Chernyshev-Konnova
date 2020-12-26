@@ -1,7 +1,6 @@
 package ru.ssau.tk.chernyshev_konnova.ui;
 
 import ru.ssau.tk.chernyshev_konnova.functions.TabulatedFunction;
-import ru.ssau.tk.chernyshev_konnova.functions.factory.*;
 import ru.ssau.tk.chernyshev_konnova.operations.TabulatedDifferentialOperator;
 
 import javax.swing.*;
@@ -11,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Differentiation extends JDialog {
-    //X & Yla
+    //Таблица результата
     private final java.util.List<String> xValuesResult = new ArrayList<>(0);
     private final List<String> yValuesResult = new ArrayList<>(0);
     private final AbstractTableModel tableModelResult = new EditableTable(xValuesResult, yValuesResult, false);
@@ -22,26 +21,24 @@ public class Differentiation extends JDialog {
     private final AbstractTableModel tableModelInitial = new EditableTable(xValuesInitial, yValuesInitial, true);
     private final JTable tableInitial = new JTable(tableModelInitial);
 
+    private final JButton button = new JButton("Вычислить..");
     private final JButton buttonResult = new JButton("Сохранить результат");
 
     private final JButton buttonCreate = new JButton("Создать..");
     private final JButton buttonSave = new JButton("Сохранить..");
     private final JButton buttonDownload = new JButton("Загрузить..");
 
-    private TabulatedFunctionFactory factory = new ArrayTabulatedFunctionFactory();
-
-    private TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator(factory);
+    private final TabulatedDifferentialOperator differentialOperator = new TabulatedDifferentialOperator(MainWindow.functionFactory);
 
     protected TabulatedFunction functionResult;
     protected TabulatedFunction functionInitial;
 
-    public Differentiation() {
+    protected Differentiation() {
         super();
         getContentPane().setLayout(new FlowLayout());
         setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         setModal(true);
         setBounds(100, 100, 800, 700);
-
 
         compose();
         addButtonListeners();
@@ -56,64 +53,52 @@ public class Differentiation extends JDialog {
     }
 
     private void addButtonListeners() {
+        //создание функции
         buttonCreate.addActionListener(e -> {
             Object[] buttonsName = {"Массив", "Функция", "Отмена"};
             int resultDialog = JOptionPane.showOptionDialog(new JFrame(), "Как вы хотите создать функцию?",
                     "Создать..", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE,
                     null, buttonsName, buttonsName[2]);
+            xValuesInitial.clear();
+            yValuesInitial.clear();
+
+            xValuesResult.clear();
+            yValuesResult.clear();
+
             switch (resultDialog) {
                 case 0:
-                    new CreatingTFThroughArray(function -> {
-                        xValuesInitial.clear();
-                        yValuesInitial.clear();
-
-                        xValuesResult.clear();
-                        yValuesResult.clear();
-
-                        functionInitial = function;
-                        for (int i = 0; i < functionInitial.getCount(); i++) {
-                            xValuesInitial.add(i, String.valueOf(functionInitial.getX(i)));
-
-                            yValuesInitial.add(i, String.valueOf(functionInitial.getY(i)));
-
-                            tableModelInitial.fireTableDataChanged();
-                        }
-
-                        functionResult = differentialOperator.derive(function);
-                        for (int i = 0; i < functionResult.getCount(); i++) {
-                            xValuesResult.add(i, String.valueOf(functionResult.getX(i)));
-                            yValuesResult.add(i, String.valueOf(functionResult.getY(i)));
-
-                            tableModelResult.fireTableDataChanged();
-                        }
-                    });
+                    new CreatingTFThroughArray(function -> functionInitial = function);
                     break;
                 case 1:
-                    new CreatingTFThroughFunction(function -> {
-                        xValuesInitial.clear();
-                        yValuesInitial.clear();
-
-                        xValuesResult.clear();
-                        yValuesResult.clear();
-
-                        functionInitial = function;
-                        for (int i = 0; i < functionInitial.getCount(); i++) {
-                            xValuesInitial.add(i, String.valueOf(functionInitial.getX(i)));
-
-                            yValuesInitial.add(i, String.valueOf(functionInitial.getY(i)));
-
-                            tableModelInitial.fireTableDataChanged();
-                        }
-
-                        functionResult = differentialOperator.derive(function);
-                        for (int i = 0; i < functionResult.getCount(); i++) {
-                            xValuesResult.add(i, String.valueOf(functionResult.getX(i)));
-                            yValuesResult.add(i, String.valueOf(functionResult.getY(i)));
-
-                            tableModelResult.fireTableDataChanged();
-                        }
-                    });
+                    new CreatingTFThroughFunction(function -> functionInitial = function);
                     break;
+            }
+
+            for (int i = 0; i < functionInitial.getCount(); i++) {
+                xValuesInitial.add(i, String.valueOf(functionInitial.getX(i)));
+                yValuesInitial.add(i, String.valueOf(functionInitial.getY(i)));
+
+                tableModelInitial.fireTableDataChanged();
+            }
+        });
+
+        //подсчет и вывод результата
+        button.addActionListener(e -> {
+            //заменить измененные значения функции
+            tableInitial.clearSelection();
+            xValuesResult.clear();
+            yValuesResult.clear();
+
+            double[] arrayX = convert(xValuesInitial);
+            double[] arrayY = convert(yValuesInitial);
+
+            //подсчет производной и вставка в таблицу
+            functionResult = differentialOperator.derive(MainWindow.functionFactory.create(arrayX, arrayY));
+            for (int i = 0; i < functionResult.getCount(); i++) {
+                xValuesResult.add(i, String.valueOf(functionResult.getX(i)));
+                yValuesResult.add(i, String.valueOf(functionResult.getY(i)));
+
+                tableModelResult.fireTableDataChanged();
             }
         });
 
@@ -127,7 +112,6 @@ public class Differentiation extends JDialog {
     }
 
     private void compose() {
-
         JPanel panelResult = new JPanel();
         GroupLayout layoutResult = new GroupLayout(panelResult);
         panelResult.setLayout(layoutResult);
@@ -138,12 +122,14 @@ public class Differentiation extends JDialog {
         layoutResult.setHorizontalGroup(
                 layoutResult.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addGroup(layoutResult.createSequentialGroup()
-                                .addComponent(buttonResult))
+                                .addComponent(buttonResult)
+                                .addComponent(button))
                         .addComponent(scrollPaneResult));
 
         layoutResult.setVerticalGroup(layoutResult.createSequentialGroup()
                 .addGroup(layoutResult.createParallelGroup(GroupLayout.Alignment.LEADING)
-                        .addComponent(buttonResult))
+                        .addComponent(buttonResult)
+                        .addComponent(button))
                 .addComponent(scrollPaneResult));
 
 
@@ -186,5 +172,15 @@ public class Differentiation extends JDialog {
         getContentPane().setBackground(Settings.color);
         panelInitial.setBackground(Settings.color);
         panelResult.setBackground(Settings.color);
+    }
+
+    private double[] convert(List<String> values) {
+        double[] array = new double[values.size()];
+        for (int i = 0; i < values.size(); i++) {
+            String num = values.get(i);
+            array[i] = Double.parseDouble(num);
+        }
+        return array;
+
     }
 }
